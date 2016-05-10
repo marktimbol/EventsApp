@@ -8,9 +8,11 @@ import {
 	View,
 	Text,
 	TextInput,
+	Image,
 	StyleSheet,
 } from 'react-native';
 
+import User from './User';
 import InputText from './ui/InputText';
 import InputEmail from './ui/InputEmail';
 import InputPassword from './ui/InputPassword';
@@ -24,16 +26,83 @@ class Login extends Component
 
 		this.state = {
 			email: 'mark@timbol.com',
-			password: 'password',
+			password: 'marktimbol',
 			buttonText: 'Login',
+			disabledButton: false,
+			message: '',
 		}
 
-		this.onLogin = this.onLogin.bind(this);
+		this.submitForm = this.submitForm.bind(this);
+		this.login = this.login.bind(this);
 	}
 
-	onLogin()
+	submitForm(e)
 	{
-		console.log(this.state.email);
+		e.preventDefault();
+
+		this.setState({
+			buttonText: 'Logging in...',
+			disabledButton: true,
+			message: '',
+		});
+
+		this.login();
+	}
+
+	login()
+	{
+		const loginUrl = 'http://mecsc.dev/api/public/login';
+		fetch(loginUrl, {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				email: this.state.email,
+				password: this.state.password
+			})
+		})
+		.then((response) => response.json())
+		.then((responseText) => {
+			console.log(responseText.user.api_token);
+			this.checkApiToken(responseText.user);
+		})
+		.catch((error) => {
+			console.warn(error);
+		})
+		.done();
+	}
+
+	checkApiToken(user)
+	{
+		if( user.api_token === '' )
+		{
+			this.setState({
+				disabledButton: false,
+				buttonText: 'Login',
+				message: 'Invalid Email / Password'
+			});
+		}
+
+		else
+		{
+			this.setState({
+				buttonText: 'Login',
+				disabledButton: false,
+			});
+
+			this.props.navigator.push({
+				title: 'Profile',
+				component: User,
+				passProps: { user }
+			});
+		}
+		// else
+		// {
+		// 	//fetch user data here
+
+		// }		
 	}
 
 	render()
@@ -41,7 +110,7 @@ class Login extends Component
 		return (
 			<View style={styles.container}>
 				<View>
-					<View style={styles.logo}></View>
+					<Image source={require('../images/logo.png')} style={styles.logo} />
 				</View>
 
 				<View style={styles.form}>
@@ -52,7 +121,11 @@ class Login extends Component
 						label={'Password:'} 
 						value={this.state.password} />						
 					<View style={styles.button}>
-						<Button label={this.state.buttonText} onPress={this.onLogin} />
+						<Button 
+							label={this.state.buttonText} 
+							disabledButton={this.state.disabledButton}
+							onPress={this.submitForm} />
+						<Text style={styles.message}>{ this.state.message }</Text>
 					</View>
 				</View>	
 
@@ -98,6 +171,13 @@ const styles = StyleSheet.create({
 		fontSize: 12,
 		textAlign: 'center',
 		marginBottom: 15,
+	},
+
+	message: {
+		color: 'white',
+		fontSize: 12,
+		textAlign: 'center',
+		marginTop: 10,	
 	}
 })
 
