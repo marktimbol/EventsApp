@@ -56,19 +56,35 @@ class Menu extends Component {
 				<View style={styles.links}>
 					<View style={styles.link}>
 						<Icon name="info-outline" size={24} style={styles.icon} />
-						<Text style={styles.label}>FAQs</Text>
+						<Text style={styles.label}>Agenda</Text>
+					</View>
+					<View style={styles.link}>
+						<Icon name="info-outline" size={24} style={styles.icon} />
+						<Text style={styles.label}>Workshop</Text>
+					</View>
+					<View style={styles.link}>
+						<Icon name="info-outline" size={24} style={styles.icon} />
+						<Text style={styles.label}>Speakers</Text>
+					</View>	
+					<View style={styles.link}>
+						<Icon name="info-outline" size={24} style={styles.icon} />
+						<Text style={styles.label}>Exhibitors</Text>
+					</View>
+					<View style={styles.link}>
+						<Icon name="info-outline" size={24} style={styles.icon} />
+						<Text style={styles.label}>Sponsors</Text>
+					</View>
+					<View style={styles.link}>
+						<Icon name="info-outline" size={24} style={styles.icon} />
+						<Text style={styles.label}>Media Partners</Text>
+					</View>
+					<View style={styles.link}>
+						<Icon name="info-outline" size={24} style={styles.icon} />
+						<Text style={styles.label}>Venue</Text>
 					</View>
 					<View style={styles.link}>
 						<Icon name="info-outline" size={24} style={styles.icon} />
 						<Text style={styles.label}>Contact Us</Text>
-					</View>
-					<View style={styles.link}>
-						<Icon name="info-outline" size={24} style={styles.icon} />
-						<Text style={styles.label}>Tourist Information</Text>
-					</View>
-					<View style={styles.link}>
-						<Icon name="info-outline" size={24} style={styles.icon} />
-						<Text style={styles.label}>Terms and Conditions</Text>
 					</View>
 				</View>
 			</View>
