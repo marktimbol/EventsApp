@@ -11,8 +11,9 @@ import {
 
 import SideMenu from 'react-native-side-menu';
 
-import PageTitle from './components/PageTitle';
+import Login from './components/Login';
 import Agendas from './components/agenda/Agendas';
+import PageTitle from './components/PageTitle';
 import Menu from './components/ui/Menu';
 
 class App extends Component
@@ -40,9 +41,11 @@ class App extends Component
 					tintColor={'white'}
 					titleTextColor={'white'}
 					shadowHidden={true}
+					navigationBarHidden={false}
+					translucent={false}
 					initialRoute={{
-						title: 'Agenda',
-						component: Agendas,
+						title: '',
+						component: Login,
 						passProps: {},
 					}} style={styles.route} />
 			</SideMenu>

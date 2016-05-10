@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		height: 250,
 		backgroundColor: '#d32f2f',
-		marginTop: 64,
 	},
 
 	avatar: {

@@ -22,7 +22,7 @@ class Agendas extends Component
 			<ScrollableTabView style={styles.tabView} 
 				tabBarPosition={'top'}
 				tabBarUnderlineColor={'#ffebee'}
-				tabBarBackgroundColor={'#d32f2f'}
+				tabBarBackgroundColor={'#c62828'}
 				tabBarActiveTextColor={'white'}
 				tabBarInactiveTextColor={'#ddd'}
 				tabBarTextStyle={styles.tabBarText}
@@ -37,7 +37,7 @@ class Agendas extends Component
 
 const styles = StyleSheet.create({
 	tabView: {
-		marginTop: 64,
+		marginTop: 0,
 	},
 
 	tabBarText: {

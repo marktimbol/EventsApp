@@ -13,20 +13,16 @@ import {
 
 class Button extends Component
 {
-	constructor(props)
-	{
-		super(props);
-	}
-
 	render()
 	{
+		let { label } = this.props;
 		return (
 			<TouchableHighlight
-				onPress={this.onPress}
+				onPress={this.props.onPress}
 				underlayColor={'#ddd'}
 			>
 				<View style={styles.button}>
-					<Text style={styles.label}>{this.props.label}</Text>
+					<Text style={styles.label}>{label}</Text>
 				</View>
 			</TouchableHighlight>
 		)
@@ -36,7 +32,7 @@ class Button extends Component
 const styles = StyleSheet.create({
 	button: {
 		padding: 5,
-		borderRadius: 5,
+		borderRadius: 2,
 		backgroundColor: 'white',
 	},
 

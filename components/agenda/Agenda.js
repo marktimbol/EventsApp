@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
 
 	agenda: {
 		padding: 10,
-		marginTop: 60,
 	},
 
 	agenda__title: {
