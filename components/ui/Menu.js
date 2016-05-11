@@ -80,6 +80,10 @@ class Menu extends Component {
 					</View>
 					<View style={styles.link}>
 						<Icon name="info-outline" size={24} style={styles.icon} />
+						<Text style={styles.label}>Visitors</Text>
+					</View>
+					<View style={styles.link}>
+						<Icon name="info-outline" size={24} style={styles.icon} />
 						<Text style={styles.label}>Venue</Text>
 					</View>
 					<View style={styles.link}>

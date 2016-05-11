@@ -44,8 +44,8 @@ class App extends Component
 					navigationBarHidden={false}
 					translucent={false}
 					initialRoute={{
-						title: '',
-						component: Login,
+						title: 'Agendas',
+						component: Agendas,
 						passProps: {},
 					}} style={styles.route} />
 			</SideMenu>

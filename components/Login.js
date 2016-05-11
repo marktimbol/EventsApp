@@ -9,6 +9,7 @@ import {
 	Text,
 	TextInput,
 	Image,
+	ActivityIndicatorIOS,
 	StyleSheet,
 } from 'react-native';
 
@@ -17,6 +18,8 @@ import InputText from './ui/InputText';
 import InputEmail from './ui/InputEmail';
 import InputPassword from './ui/InputPassword';
 import Button from './ui/Button';
+
+const domain = 'http://mecsc.dev';
 
 class Login extends Component
 {
@@ -29,6 +32,7 @@ class Login extends Component
 			password: 'marktimbol',
 			buttonText: 'Login',
 			disabledButton: false,
+			formWasSubmitted: false,
 			message: '',
 		}
 
@@ -41,9 +45,10 @@ class Login extends Component
 		e.preventDefault();
 
 		this.setState({
-			buttonText: 'Logging in...',
-			disabledButton: true,
+			// buttonText: 'Logging in...',
+			// disabledButton: true,
 			message: '',
+			formWasSubmitted: true,
 		});
 
 		this.login();
@@ -51,7 +56,8 @@ class Login extends Component
 
 	login()
 	{
-		const loginUrl = 'http://mecsc.dev/api/public/login';
+		const loginUrl = `${domain}/api/public/login`;
+		
 		fetch(loginUrl, {
 			method: 'POST',
 			headers: {
@@ -97,12 +103,7 @@ class Login extends Component
 				component: User,
 				passProps: { user }
 			});
-		}
-		// else
-		// {
-		// 	//fetch user data here
-
-		// }		
+		}	
 	}
 
 	render()
@@ -113,26 +114,34 @@ class Login extends Component
 					<Image source={require('../images/logo.png')} style={styles.logo} />
 				</View>
 
-				<View style={styles.form}>
-					<InputEmail 
-						label={'E-Mail:'} 
-						value={this.state.email} />
-					<InputPassword 
-						label={'Password:'} 
-						value={this.state.password} />						
-					<View style={styles.button}>
-						<Button 
-							label={this.state.buttonText} 
-							disabledButton={this.state.disabledButton}
-							onPress={this.submitForm} />
-						<Text style={styles.message}>{ this.state.message }</Text>
-					</View>
-				</View>	
+				{ this.state.formWasSubmitted ?
+					<View style={styles.loading}>
+						<ActivityIndicatorIOS animating={true} size={'large'} color={'white'} />
+					</View> :
 
-				<View style={styles.actions}>
-					<Text style={styles.link}>Create New Event Account</Text>
-					<Text style={styles.link}>Forgot Password?</Text>
-				</View>
+					<View>
+						<View style={styles.form}>
+							<InputEmail 
+								label={'E-Mail:'} 
+								value={this.state.email} />
+							<InputPassword 
+								label={'Password:'} 
+								value={this.state.password} />						
+							<View style={styles.button}>
+								<Button 
+									label={this.state.buttonText} 
+									disabledButton={this.state.disabledButton}
+									onPress={this.submitForm} />
+								<Text style={styles.message}>{ this.state.message }</Text>
+							</View>
+						</View>	
+
+						<View style={styles.actions}>
+							<Text style={styles.link}>Create New Event Account</Text>
+							<Text style={styles.link}>Forgot Password?</Text>
+						</View>
+					</View>
+				}
 			</View>
 		)
 	}
@@ -151,6 +160,10 @@ const styles = StyleSheet.create({
 		height: 100,
 		borderRadius: 50,
 		backgroundColor: 'white'
+	},
+
+	loading: {
+		marginTop: 50,
 	},
 
 	form: {

@@ -22,23 +22,21 @@ class AgendaRow extends Component
 				onPress={this.props.onPress}
 				underlayColor={'#ddd'}>
 				<View style={styles.agenda}>
-					<View style={styles.agenda__info}>
-						<Text style={styles.agenda__title} numberOfLines={1}>
-							{this.props.agenda.title}
-						</Text>
-						<View style={styles.row}>
-							<Text style={[styles.agenda__timings, styles.textMuted]}>
-								{this.props.agenda.time}
+					<View style={styles.left}>
+						<View style={styles.indicator}></View>
+						<View style={styles.line}></View>
+					</View>
+					<View style={styles.right}>
+						<Text style={styles.timings}>{this.props.agenda.time}</Text>
+						<View style={styles.info}>
+							<Text style={styles.title}>
+								{this.props.agenda.title}
 							</Text>
-							<Text style={[styles.agenda__venue, styles.textMuted]}>
-								{this.props.agenda.venue}
+							<Text style={styles.body} numberOfLines={3}>
+								{this.props.agenda.description}
 							</Text>
 						</View>
 					</View>
-					<View style={styles.agenda__action}>
-						<CheckBox 
-							onPress={() => this.props.toggleCheck(this.props.agenda)} />
-					</View>	
 				</View>	
 			</TouchableHighlight>
 		)
@@ -46,42 +44,66 @@ class AgendaRow extends Component
 }
 
 const styles = StyleSheet.create({
-	row: {
-		flex: 1,
-		flexDirection: 'row',
-	},
-
-	textMuted: {
-		fontSize: 11,
-		color: '#888',
-	},
 
 	agenda: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'center',
-		padding: 10,
+		flex: 1,
+		alignItems: 'flex-start',
 		borderColor: '#ddd',
-		borderBottomWidth: StyleSheet.hairlineWidth,
+		flexDirection: 'row',
 	},
 
-	agenda__title: {
-		fontSize: 14,
-		color: '#333',
-		fontFamily: 'Helvetica',
-		marginBottom: 2,
+	timings: {
+		color: '#d32f2f',
+		fontSize: 13,
+		marginTop: 0,
+		fontFamily: 'Lato-Regular',
 	},
 
-	agenda__info: {
-		flex: 0.9,
+	info: {
+		borderWidth: 1,
+		borderColor: '#ddd',
+		padding: 5,
+		marginTop: 5,
+		borderRadius: 2,
 	},
 
-	agenda__timings: {
-		marginRight: 30,
+	title: {
+		fontSize: 12,
+		color: '#555',
+		marginTop: 0,
+		fontFamily: 'Lato-Regular',
 	},
 
-	agenda__action: {
+	body: {
+		color: '#888',
+		fontSize: 11,
+		fontFamily: 'Lato-Light'
+	},
+
+	left: {
 		flex: 0.1,
+		alignItems: 'center',
+	},
+
+	indicator: {
+		width: 10,
+		height: 10,
+		top: 5,
+		borderRadius: 5,
+		backgroundColor: '#d32f2f',
+	},
+
+	line: {
+		flex: 1,
+		width: 1,
+		height: 100,
+		marginTop: 5,
+		backgroundColor: '#ddd',
+	},
+
+	right: {
+		flex: 0.9,
+		alignItems: 'flex-start',
 	}
 });
 

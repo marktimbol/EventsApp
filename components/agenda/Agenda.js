@@ -8,6 +8,7 @@ import {
 	View,
 	Text,
 	Image,
+	ScrollView,
 	StyleSheet,
 } from 'react-native';
 
@@ -23,33 +24,41 @@ class Agenda extends Component
 	render()
 	{
 		return (
-			<View style={styles.agenda}>
-				<Text style={styles.agenda__title}>{this.props.agenda.title}</Text>
-				<Text style={styles.textMuted}>
-					Time: {this.props.agenda.time}
-				</Text>
-				<Text style={styles.textMuted}>
-					Venue: {this.props.agenda.venue}
-				</Text>
+			<ScrollView style={styles.scrollView}>
+				<View style={styles.agenda}>
+					<Text style={styles.agenda__title}>{this.props.agenda.title}</Text>
+					<Text style={styles.textMuted}>
+						Time: {this.props.agenda.time}
+					</Text>
+					<Text style={styles.textMuted}>
+						Venue: {this.props.agenda.venue}
+					</Text>
 
-				<AgendaSpeakers 
-					speakers={this.props.agenda.speakers} 
-					navigator={this.props.navigator} />
-		
-				<Text style={styles.title}>
-					Agenda Description
-				</Text>
+					<AgendaSpeakers 
+						speakers={this.props.agenda.speakers} 
+						navigator={this.props.navigator} />
+			
+					<Text style={styles.title}>
+						Agenda Description
+					</Text>
 
-				<Text style={[styles.textMuted, styles.body]}>
-					{this.props.agenda.description}
-				</Text>
+					<Text style={[styles.textMuted, styles.body]}>
+						{this.props.agenda.description}
+					</Text>
 
-			</View>	
+				</View>	
+				<View style={styles.footer}></View>
+			</ScrollView>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
+
+	scrollView: {
+		flex: 1,
+	},
+
 	row: {
 		flex: 1,
 		flexDirection: 'row',
@@ -83,6 +92,10 @@ const styles = StyleSheet.create({
 	body: {
 		color: '#333',
 		lineHeight: 16,
+	},
+
+	footer: {
+		height: 100,
 	}
 });
 

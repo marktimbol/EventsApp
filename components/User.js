@@ -12,6 +12,8 @@ import {
 	StyleSheet,
 } from 'react-native';
 
+import Chat from './Chat';
+
 class User extends Component
 {
 	constructor(props)
@@ -21,7 +23,11 @@ class User extends Component
 
 	showThread(user)
 	{
-		alert('show thread.');
+		this.props.navigator.push({
+			title: `Chat with ${user.name}`,
+			component: Chat,
+			passProps: { user }
+		});
 	}
 
 	render()
