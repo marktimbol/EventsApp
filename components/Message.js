@@ -28,9 +28,7 @@ class Message extends Component
 
 				<View style={styles.right}>
 					<Text style={styles.body}>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						{this.props.message.message}
 					</Text>
 				</View>
 			</View>

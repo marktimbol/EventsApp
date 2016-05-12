@@ -9,9 +9,13 @@ import {
 	Text,
 	Image,
 	TouchableHighlight,
+	NavigatorIOS,
 	StyleSheet,
 	Dimensions,
 } from 'react-native';
+
+import Agendas from '../agenda/Agendas';
+import Speakers from '../Speakers';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 const { height, width } = Dimensions.get('window');
@@ -26,17 +30,12 @@ class Menu extends Component {
 		}
 	}
 	
-	onSearch(value) {
-
-	}
-
 	componentWillMount() {
 		Icon.getImageSource('info', 24)
 			.then( (response) => this.setState({ infoIcon: response }) );
 	}
 
 	render() {
-
 		if( ! this.state.infoIcon ) {
 			return false;
 		}
@@ -54,18 +53,28 @@ class Menu extends Component {
 				</View>	
 
 				<View style={styles.links}>
-					<View style={styles.link}>
-						<Icon name="info-outline" size={24} style={styles.icon} />
-						<Text style={styles.label}>Agenda</Text>
-					</View>
+					<TouchableHighlight 
+						underlayColor={'#ddd'} 
+						onPress={this.viewAgendas.bind(this)}
+					>
+						<View style={styles.link}>
+							<Icon name="info-outline" size={24} style={styles.icon} />
+							<Text style={styles.label}>Agenda</Text>
+						</View>
+					</TouchableHighlight>
 					<View style={styles.link}>
 						<Icon name="info-outline" size={24} style={styles.icon} />
 						<Text style={styles.label}>Workshop</Text>
 					</View>
-					<View style={styles.link}>
-						<Icon name="info-outline" size={24} style={styles.icon} />
-						<Text style={styles.label}>Speakers</Text>
-					</View>	
+					<TouchableHighlight 
+						underlayColor={'#ddd'} 
+						onPress={this.viewSpeakers.bind(this)}
+					>
+						<View style={styles.link}>
+							<Icon name="info-outline" size={24} style={styles.icon} />
+							<Text style={styles.label}>Speakers</Text>
+						</View>
+					</TouchableHighlight>
 					<View style={styles.link}>
 						<Icon name="info-outline" size={24} style={styles.icon} />
 						<Text style={styles.label}>Exhibitors</Text>
@@ -94,6 +103,28 @@ class Menu extends Component {
 			</View>
 		)
 	}
+
+	viewAgendas()
+	{
+		this.props.closeSidebar();
+
+		this.props.navigator.push({
+			title: 'Agendas',
+			component: Agendas,
+			passProps: {}
+		});
+	}
+
+	viewSpeakers()
+	{
+		this.props.closeSidebar();
+
+		this.props.navigator.push({
+			title: 'Speakers',
+			component: Speakers,
+			passProps: {}
+		});
+	}
 }
 
 const styles = StyleSheet.create({
@@ -107,7 +138,7 @@ const styles = StyleSheet.create({
 		padding: 10,
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: '#d32f2f',
+		backgroundColor: '#212121',
 	},
 
 	logo: {

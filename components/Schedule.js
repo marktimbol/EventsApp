@@ -40,7 +40,8 @@ class Schedule extends Component
 		return (
 			<ListView
 				dataSource={this.state.agendas}
-				renderRow={this.renderRow.bind(this)} style={styles.listView} />
+				renderRow={this.renderRow.bind(this)} 
+				style={styles.listView} />
 		)
 	}
 

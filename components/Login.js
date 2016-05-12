@@ -9,11 +9,15 @@ import {
 	Text,
 	TextInput,
 	Image,
+	TouchableHighlight,
 	ActivityIndicatorIOS,
 	StyleSheet,
 } from 'react-native';
 
+import Messages from './Messages';
 import User from './User';
+import Agendas from './agenda/Agendas';
+
 import InputText from './ui/InputText';
 import InputEmail from './ui/InputEmail';
 import InputPassword from './ui/InputPassword';
@@ -28,25 +32,22 @@ class Login extends Component
 		super(props);
 
 		this.state = {
-			email: 'mark@timbol.com',
-			password: 'marktimbol',
-			buttonText: 'Login',
-			disabledButton: false,
-			formWasSubmitted: false,
+			email: 'john@doe.com',
+			password: 'johndoe',
+
 			message: '',
+			formWasSubmitted: false,
 		}
 
 		this.submitForm = this.submitForm.bind(this);
 		this.login = this.login.bind(this);
 	}
-
+	
 	submitForm(e)
 	{
 		e.preventDefault();
 
 		this.setState({
-			// buttonText: 'Logging in...',
-			// disabledButton: true,
 			message: '',
 			formWasSubmitted: true,
 		});
@@ -71,7 +72,6 @@ class Login extends Component
 		})
 		.then((response) => response.json())
 		.then((responseText) => {
-			console.log(responseText.user.api_token);
 			this.checkApiToken(responseText.user);
 		})
 		.catch((error) => {
@@ -85,22 +85,16 @@ class Login extends Component
 		if( user.api_token === '' )
 		{
 			this.setState({
-				disabledButton: false,
-				buttonText: 'Login',
 				message: 'Invalid Email / Password'
 			});
+			//or use an Alert instead. Much better
 		}
 
 		else
 		{
-			this.setState({
-				buttonText: 'Login',
-				disabledButton: false,
-			});
-
-			this.props.navigator.push({
-				title: 'Profile',
-				component: User,
+			this.props.navigator.replace({
+				title: 'Messages',
+				component: Messages,
 				passProps: { user }
 			});
 		}	
@@ -129,7 +123,7 @@ class Login extends Component
 								value={this.state.password} />						
 							<View style={styles.button}>
 								<Button 
-									label={this.state.buttonText} 
+									label={'Login'} 
 									disabledButton={this.state.disabledButton}
 									onPress={this.submitForm} />
 								<Text style={styles.message}>{ this.state.message }</Text>
@@ -137,6 +131,15 @@ class Login extends Component
 						</View>	
 
 						<View style={styles.actions}>
+							<TouchableHighlight onPress={() => this.props.navigator.replace({
+								title: 'Agendas', 
+								component: Agendas,
+								passProps: {}
+							})}
+							>
+								<Text style={styles.link}>View Agendas</Text>
+							</TouchableHighlight>
+
 							<Text style={styles.link}>Create New Event Account</Text>
 							<Text style={styles.link}>Forgot Password?</Text>
 						</View>
@@ -176,14 +179,14 @@ const styles = StyleSheet.create({
 
 	actions: {
 		flex: 1,
-		marginTop: 100,
+		marginTop: 30,
 	},
 
 	link: {
 		color: 'white',
 		fontSize: 12,
 		textAlign: 'center',
-		marginBottom: 15,
+		marginBottom: 10,
 	},
 
 	message: {

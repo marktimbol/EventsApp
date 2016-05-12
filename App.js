@@ -1,10 +1,11 @@
 'use strict';
 
 import React, {
-	Component,
+
 } from 'react';
 
 import {
+	Component,
 	NavigatorIOS,
 	StyleSheet,
 } from 'react-native';
@@ -24,12 +25,30 @@ class App extends Component
 
 		this.state = {
 			isMenuOpen: false,
+			nav: null,
 		}
+
+	}
+
+	componentDidMount()
+	{
+		this.setState({
+			nav: this.refs.nav.navigator
+		});
 	}
 	
+	closeSidebar()
+	{
+		this.setState({
+			isMenuOpen: false
+		});
+	}
+
 	render() 
 	{
-		const menu = <Menu />
+		const menu = <Menu name={'mark'} 
+						navigator={this.state.nav} 
+						closeSidebar={this.closeSidebar.bind(this)} />
 
 		return (
 			<SideMenu menu={menu}
@@ -43,10 +62,11 @@ class App extends Component
 					shadowHidden={true}
 					navigationBarHidden={false}
 					translucent={false}
+					ref='nav'
 					initialRoute={{
-						title: 'Agendas',
-						component: Agendas,
-						passProps: {},
+						title: '',
+						component: Login,
+						passProps: { },
 					}} style={styles.route} />
 			</SideMenu>
 		)
