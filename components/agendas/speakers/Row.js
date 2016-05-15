@@ -12,9 +12,10 @@ import {
 	StyleSheet
 } from 'react-native';
 
-import User from '../../components/User';
+import User from '../../../components/User';
+import GS from './../../GlobalStyles';
 
-class AgendaSpeaker extends Component
+class Row extends Component
 {
 	constructor(props)
 	{
@@ -48,18 +49,18 @@ class AgendaSpeaker extends Component
 				<View style={styles.speaker}>
 					<View style={styles.speaker__image}>
 						<Image 
-							source={require('../../images/avatar.jpg')}
+							source={require('../../../images/avatar.jpg')}
 							style={styles.avatar} />
 					</View>
 
 					<View style={styles.speaker__info}>
-						<Text style={styles.name}>
+						<Text style={[GS.themeFont, styles.name]}>
 							{this.props.speaker.name}
 						</Text>
-						<Text style={[styles.textMuted, styles.designation]}>
+						<Text style={[GS.themeFont, GS.body]}>
 							{this.props.speaker.designation}
 						</Text>
-						<Text style={[styles.textMuted, styles.company]}>
+						<Text style={[GS.themeFont, GS.body]}>
 							{this.props.speaker.company}
 						</Text>
 
@@ -74,17 +75,10 @@ class AgendaSpeaker extends Component
 }
 
 const styles = StyleSheet.create({
-	textMuted: {
-		fontSize: 11,
-		color: '#888',
-		lineHeight: 16,
-	},
-
 	speaker: {
 		flex: 1,
 		flexDirection: 'row',
-		paddingTop: 10,
-		paddingBottom: 10,
+		paddingVertical: 10,
 		borderColor: '#ddd',
 		borderBottomWidth: StyleSheet.hairlineWidth,
 	},
@@ -104,15 +98,8 @@ const styles = StyleSheet.create({
 	},
 
 	name: {
+		color: '#333',
 		fontSize: 11,
-	},
-
-	designation: {
-		fontSize: 10
-	},
-
-	company: {
-		fontSize: 10
 	},
 
 	roles: {
@@ -134,4 +121,4 @@ const styles = StyleSheet.create({
 	},
 })
 
-module.exports = AgendaSpeaker;
+module.exports = Row;

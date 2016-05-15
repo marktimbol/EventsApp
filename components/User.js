@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 import Chat from './Chat';
+import GS from './GlobalStyles';
 
 class User extends Component
 {
@@ -23,6 +24,7 @@ class User extends Component
 
 	showThread(user)
 	{
+		// alert(user.name);
 		this.props.navigator.push({
 			title: `Chat with ${user.name}`,
 			component: Chat,
@@ -43,16 +45,22 @@ class User extends Component
 						</View>
 
 						<View>
-							<Text style={[styles.text, styles.name]}>{this.props.user.name}</Text>
-							<Text style={[styles.text, styles.designation]}>{this.props.user.designation}</Text>
-							<Text style={[styles.text, styles.company]}>{this.props.user.company}</Text>
+							<Text style={[GS.themeFont, styles.text, styles.name]}>
+								{this.props.user.name}
+							</Text>
+							<Text style={[GS.themeFont, styles.text, styles.designation]}>
+								{this.props.user.designation}
+							</Text>
+							<Text style={[GS.themeFont, styles.text, styles.company]}>
+								{this.props.user.company}
+							</Text>
 						</View>
 					</View>
 				</TouchableHighlight>
 
 				<View style={styles.content}>
-					<Text style={styles.title}>About</Text>
-					<Text style={styles.body}>
+					<Text style={GS.pageTitle}>About</Text>
+					<Text style={GS.body}>
 						{this.props.user.about}
 					</Text>
 				</View>

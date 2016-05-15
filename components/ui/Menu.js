@@ -11,14 +11,22 @@ import {
 	TouchableHighlight,
 	NavigatorIOS,
 	StyleSheet,
+	ScrollView,
 	Dimensions,
 } from 'react-native';
 
-import Agendas from '../agenda/Agendas';
-import Speakers from '../Speakers';
+import Store from 'react-native-simple-store';
+
+import Messages from '../messages/All';
+import Agendas from '../agendas/All';
+import Speakers from '../speakers/All';
+
+import Login from '../Login';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 const { height, width } = Dimensions.get('window');
+
+var apiToken = '';
 
 class Menu extends Component {
 
@@ -27,12 +35,18 @@ class Menu extends Component {
 
 		this.state = {
 			infoIcon: null,
+			currentUser: [],
 		}
 	}
 	
 	componentWillMount() {
 		Icon.getImageSource('info', 24)
 			.then( (response) => this.setState({ infoIcon: response }) );
+	}
+
+	componentDidMount()
+	{
+		this.setCurrentUser();
 	}
 
 	render() {
@@ -52,63 +66,94 @@ class Menu extends Component {
 						style={styles.logo} />
 				</View>	
 
-				<View style={styles.links}>
-					<TouchableHighlight 
-						underlayColor={'#ddd'} 
-						onPress={this.viewAgendas.bind(this)}
-					>
+				<ScrollView>
+					<View style={styles.links}>
+						<TouchableHighlight 
+							underlayColor={'#ddd'} 
+							onPress={this.viewMessages.bind(this)}
+						>
+							<View style={styles.link}>
+								<Icon name="info-outline" size={24} style={styles.icon} />
+								<Text style={styles.label}>Messages</Text>
+							</View>
+						</TouchableHighlight>
+						<TouchableHighlight 
+							underlayColor={'#ddd'} 
+							onPress={this.viewAgendas.bind(this)}
+						>
+							<View style={styles.link}>
+								<Icon name="info-outline" size={24} style={styles.icon} />
+								<Text style={styles.label}>Agendas</Text>
+							</View>
+						</TouchableHighlight>
 						<View style={styles.link}>
 							<Icon name="info-outline" size={24} style={styles.icon} />
-							<Text style={styles.label}>Agenda</Text>
+							<Text style={styles.label}>Workshop</Text>
 						</View>
-					</TouchableHighlight>
-					<View style={styles.link}>
-						<Icon name="info-outline" size={24} style={styles.icon} />
-						<Text style={styles.label}>Workshop</Text>
-					</View>
-					<TouchableHighlight 
-						underlayColor={'#ddd'} 
-						onPress={this.viewSpeakers.bind(this)}
-					>
+						<TouchableHighlight 
+							underlayColor={'#ddd'} 
+							onPress={this.viewSpeakers.bind(this)}
+						>
+							<View style={styles.link}>
+								<Icon name="info-outline" size={24} style={styles.icon} />
+								<Text style={styles.label}>Speakers</Text>
+							</View>
+						</TouchableHighlight>
 						<View style={styles.link}>
 							<Icon name="info-outline" size={24} style={styles.icon} />
-							<Text style={styles.label}>Speakers</Text>
+							<Text style={styles.label}>Exhibitors</Text>
 						</View>
-					</TouchableHighlight>
-					<View style={styles.link}>
-						<Icon name="info-outline" size={24} style={styles.icon} />
-						<Text style={styles.label}>Exhibitors</Text>
+						<View style={styles.link}>
+							<Icon name="info-outline" size={24} style={styles.icon} />
+							<Text style={styles.label}>Sponsors</Text>
+						</View>
+						<View style={styles.link}>
+							<Icon name="info-outline" size={24} style={styles.icon} />
+							<Text style={styles.label}>Media Partners</Text>
+						</View>
+						<View style={styles.link}>
+							<Icon name="info-outline" size={24} style={styles.icon} />
+							<Text style={styles.label}>Visitors</Text>
+						</View>
+						<View style={styles.link}>
+							<Icon name="info-outline" size={24} style={styles.icon} />
+							<Text style={styles.label}>Venue</Text>
+						</View>
+						<View style={styles.link}>
+							<Icon name="info-outline" size={24} style={styles.icon} />
+							<Text style={styles.label}>Contact Us</Text>
+						</View>
+						<TouchableHighlight 
+							underlayColor={'#ddd'}
+						>
+							<View style={styles.link}>
+								<Icon name="info-outline" size={24} style={styles.icon} />
+								<Text style={styles.label}>Logout</Text>
+							</View>
+						</TouchableHighlight>
 					</View>
-					<View style={styles.link}>
-						<Icon name="info-outline" size={24} style={styles.icon} />
-						<Text style={styles.label}>Sponsors</Text>
-					</View>
-					<View style={styles.link}>
-						<Icon name="info-outline" size={24} style={styles.icon} />
-						<Text style={styles.label}>Media Partners</Text>
-					</View>
-					<View style={styles.link}>
-						<Icon name="info-outline" size={24} style={styles.icon} />
-						<Text style={styles.label}>Visitors</Text>
-					</View>
-					<View style={styles.link}>
-						<Icon name="info-outline" size={24} style={styles.icon} />
-						<Text style={styles.label}>Venue</Text>
-					</View>
-					<View style={styles.link}>
-						<Icon name="info-outline" size={24} style={styles.icon} />
-						<Text style={styles.label}>Contact Us</Text>
-					</View>
-				</View>
+				</ScrollView>
 			</View>
 		)
+	}
+
+	viewMessages()
+	{
+		this.setCurrentUser();
+		this.props.closeSidebar();
+
+		this.props.navigator.replace({
+			title: 'Messages',
+			component: Messages,
+			passProps: { currentUser: this.state.currentUser }
+		});
 	}
 
 	viewAgendas()
 	{
 		this.props.closeSidebar();
 
-		this.props.navigator.push({
+		this.props.navigator.replace({
 			title: 'Agendas',
 			component: Agendas,
 			passProps: {}
@@ -119,11 +164,33 @@ class Menu extends Component {
 	{
 		this.props.closeSidebar();
 
-		this.props.navigator.push({
+		this.props.navigator.replace({
 			title: 'Speakers',
 			component: Speakers,
 			passProps: {}
 		});
+	}
+
+	logout()
+	{
+		// Store.delete('currentUser');
+		this.props.closeSidebar();
+
+		this.props.navigator.replace({
+			title: '',
+			component: Login,
+			passProps: {}
+		});
+	}
+
+	setCurrentUser()
+	{
+		return Store.get('currentUser')
+			.then((currentUser) => {
+				this.setState({
+					currentUser
+				})
+			})
 	}
 }
 
@@ -148,14 +215,13 @@ const styles = StyleSheet.create({
 	},
 
 	links: {
-		margin: 20,
-		marginLeft: 30,
+		marginTop: 20,
 	},
 
 	link: {
+		padding: 10,
 		flexDirection: 'row',
 		alignItems: 'center',
-		paddingVertical: 10,
 	},
 
 	label: {

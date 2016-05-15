@@ -11,10 +11,9 @@ import {
 	StyleSheet
 } from 'react-native';
 
-import Message from './Message';
 import ChatForm from './ChatForm';
 
-const temporaryApi = 'lggq2ydDHGSNkMmgvSiyf7uaQoc45NBBnwpY5VvoXDvJVPJykSRA9Sz8ZfPG';
+const temporaryApi = 'jLzrFiv9SKhJGZEQWkk3L5BUQtsi6PKGgTv0b9PCOrblzjIjCEGcJd1UnlT4';
 
 class Chat extends Component
 {
@@ -43,8 +42,7 @@ class Chat extends Component
 			this.setState({
 				hasCommunicated: responseText.hasCommunicated
 			});
-		})
-		.done();
+		});
 	}
 
 	startThread(message)
@@ -90,7 +88,22 @@ class Chat extends Component
 		return (
 			<View style={styles.chat}>
 				<View style={styles.messages}>
-					<Message />
+					<View style={styles.message}>
+						<View style={styles.left}>
+							<Image source={require('../images/avatar.jpg')} style={styles.avatar} />
+						</View>
+
+						<View style={styles.right}>
+							<Text style={styles.body}>
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+								consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+								cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+								proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</Text>
+						</View>
+					</View>
 				</View>
 
 				<View style={styles.form}>
@@ -112,6 +125,35 @@ const styles = StyleSheet.create({
 		flex: 0.8,
 		padding: 10,
 		backgroundColor: '#eee',
+	},
+
+	message: {
+		padding: 10,
+		borderRadius: 3,
+		marginBottom: 10,
+		flexDirection: 'row',
+		backgroundColor: 'white',
+	},
+
+	left: {
+		flex: 0.1,
+		marginRight: 10,
+	},
+
+	right: {
+		flex: 0.9,
+	},
+
+	body: {
+		color: '#333',
+		fontSize: 10,
+		paddingHorizontal: 5,
+	},
+
+	avatar: {
+		width: 30,
+		height: 30,
+		borderRadius: 15,
 	},
 
 	form: {

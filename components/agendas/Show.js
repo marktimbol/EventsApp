@@ -12,9 +12,10 @@ import {
 	StyleSheet,
 } from 'react-native';
 
-import AgendaSpeakers from './AgendaSpeakers';
+import AgendaSpeakers from './speakers/All';
+import GS from './../GlobalStyles';
 
-class Agenda extends Component
+class Show extends Component
 {
 	constructor(props)
 	{
@@ -26,11 +27,13 @@ class Agenda extends Component
 		return (
 			<ScrollView style={styles.scrollView}>
 				<View style={styles.agenda}>
-					<Text style={styles.agenda__title}>{this.props.agenda.title}</Text>
-					<Text style={styles.textMuted}>
+					<Text style={[GS.themeFont, GS.pageTitle, styles.pageTitle]}>
+						{this.props.agenda.title}
+					</Text>
+					<Text style={[GS.textMuted, styles.textMuted]}>
 						Time: {this.props.agenda.time}
 					</Text>
-					<Text style={styles.textMuted}>
+					<Text style={[GS.textMuted, styles.textMuted]}>
 						Venue: {this.props.agenda.venue}
 					</Text>
 
@@ -38,11 +41,11 @@ class Agenda extends Component
 						speakers={this.props.agenda.speakers} 
 						navigator={this.props.navigator} />
 			
-					<Text style={styles.title}>
+					<Text style={[GS.themeFont, GS.pageTitle]}>
 						Agenda Description
 					</Text>
 
-					<Text style={[styles.textMuted, styles.body]}>
+					<Text style={[GS.themeFont, GS.body]}>
 						{this.props.agenda.description}
 					</Text>
 
@@ -64,34 +67,16 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 	},
 
+	pageTitle: {
+		marginTop: 0,
+	},
+
 	textMuted: {
-		fontSize: 11,
-		color: '#888',
-		lineHeight: 16,
+		lineHeight: 14,
 	},
 
 	agenda: {
 		padding: 10,
-	},
-
-	agenda__title: {
-		fontSize: 14,
-		color: '#333',
-		fontFamily: 'Helvetica',
-		marginBottom: 2,
-	},
-
-	title: {
-		fontSize: 13,
-		marginTop: 20,
-		marginBottom: 10,
-		borderColor: '#ddd',
-		borderBottomWidth: StyleSheet.hairlineWidth,
-	},
-
-	body: {
-		color: '#333',
-		lineHeight: 16,
 	},
 
 	footer: {
@@ -99,4 +84,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-module.exports = Agenda;
+module.exports = Show;

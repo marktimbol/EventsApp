@@ -10,12 +10,13 @@ import {
 	ActivityIndicatorIOS,
 } from 'react-native';
 
+import Store from 'react-native-simple-store';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import Schedule from '../../components/Schedule';
-
+import GS from './../GlobalStyles';
 const domain = 'http://mecsc.dev';
 
-class Agendas extends Component
+class All extends Component
 {
 	constructor(props)
 	{
@@ -29,6 +30,11 @@ class Agendas extends Component
 
 	componentDidMount()
 	{
+		// Store.get('currentUser')
+		// 	.then(currentUser => {
+		// 		console.log('After Login:', currentUser);
+		// 	});
+
 		this.fetchSchedules();
 	}
 
@@ -53,7 +59,7 @@ class Agendas extends Component
 	showLoading()
 	{
 		return (
-			<View style={styles.loading}>
+			<View style={GS.loading}>
 				<ActivityIndicatorIOS animating={true} size={'large'} />
 			</View>
 		)
@@ -74,26 +80,29 @@ class Agendas extends Component
 				tabBarActiveTextColor={'white'}
 				tabBarInactiveTextColor={'#ddd'}
 				tabBarTextStyle={styles.tabBarText}
+				style={styles.tabBar}
 				>
 					<Schedule tabLabel={'First Day'} 
 						schedule={this.state.schedules[0]} 
-						navigator={this.props.navigator} />
+						navigator={this.props.navigator}
+						style={[GS.themeFont]} />
 					<Schedule tabLabel={'Second Day'} 
 						schedule={this.state.schedules[1]} 
-						navigator={this.props.navigator} />
+						navigator={this.props.navigator}
+						style={[GS.themeFont]} />
 					<Schedule tabLabel={'Third Day'} 
 						schedule={this.state.schedules[2]} 
-						navigator={this.props.navigator} />
+						navigator={this.props.navigator}
+						style={[GS.themeFont]} />
 			</ScrollableTabView>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
-	loading: {
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
+	tabBar: {
+		padding: 0,
+		margin: 0,
 	},
 
 	tabBarText: {
@@ -101,4 +110,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-module.exports = Agendas;
+module.exports = All;

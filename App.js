@@ -13,7 +13,6 @@ import {
 import SideMenu from 'react-native-side-menu';
 
 import Login from './components/Login';
-import Agendas from './components/agenda/Agendas';
 import PageTitle from './components/PageTitle';
 import Menu from './components/ui/Menu';
 
@@ -46,8 +45,7 @@ class App extends Component
 
 	render() 
 	{
-		const menu = <Menu name={'mark'} 
-						navigator={this.state.nav} 
+		const menu = <Menu navigator={this.state.nav} 
 						closeSidebar={this.closeSidebar.bind(this)} />
 
 		return (

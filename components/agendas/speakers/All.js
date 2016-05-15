@@ -11,9 +11,10 @@ import {
 	StyleSheet,
 } from 'react-native';
 
-import AgendaSpeaker from './AgendaSpeaker';
+import AgendaSpeaker from './Row';
+import GS from './../../GlobalStyles';
 
-class AgendaSpeakers extends Component
+class All extends Component
 {
 	constructor(props)
 	{
@@ -22,7 +23,7 @@ class AgendaSpeakers extends Component
 
 	render()
 	{
-		const speakers = this.props.speakers.map((speaker) => {
+		let speakers = this.props.speakers.map((speaker) => {
 			return (
 				<AgendaSpeaker 
 					key={speaker.id}
@@ -31,9 +32,10 @@ class AgendaSpeakers extends Component
 					navigator={this.props.navigator} />
 			)
 		});
+		
 		return (
 			<View>
-				<Text style={styles.title}>Speakers</Text>
+				<Text style={[GS.themeFont, GS.pageTitle]}>Speakers</Text>
 				<View>
 					{ speakers }
 				</View>
@@ -43,13 +45,7 @@ class AgendaSpeakers extends Component
 }
 
 const styles = StyleSheet.create({
-	title: {
-		fontSize: 13,
-		marginTop: 20,
-		marginBottom: 10,
-		borderColor: '#ddd',
-		borderBottomWidth: StyleSheet.hairlineWidth,
-	},
+	
 });
 
-module.exports = AgendaSpeakers;
+module.exports = All;

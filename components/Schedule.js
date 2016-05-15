@@ -12,8 +12,8 @@ import {
 	StyleSheet,
 } from 'react-native';
 
-import AgendaRow from './agenda/AgendaRow';
-import Agenda from './agenda/Agenda';
+import AgendaRow from './agendas/Row';
+import Agenda from './agendas/Show';
 
 class Schedule extends Component
 {

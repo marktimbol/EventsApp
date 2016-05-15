@@ -14,14 +14,16 @@ import {
 	StyleSheet,
 } from 'react-native';
 
-import Messages from './Messages';
+import Messages from './messages/All';
 import User from './User';
-import Agendas from './agenda/Agendas';
+import Agendas from './agendas/All';
 
 import InputText from './ui/InputText';
 import InputEmail from './ui/InputEmail';
 import InputPassword from './ui/InputPassword';
 import Button from './ui/Button';
+
+import Store from 'react-native-simple-store';
 
 const domain = 'http://mecsc.dev';
 
@@ -72,15 +74,12 @@ class Login extends Component
 		})
 		.then((response) => response.json())
 		.then((responseText) => {
-			this.checkApiToken(responseText.user);
-		})
-		.catch((error) => {
-			console.warn(error);
+			this.authenticate(responseText.user);
 		})
 		.done();
 	}
 
-	checkApiToken(user)
+	authenticate(user)
 	{
 		if( user.api_token === '' )
 		{
@@ -92,12 +91,18 @@ class Login extends Component
 
 		else
 		{
-			this.props.navigator.replace({
-				title: 'Messages',
-				component: Messages,
-				passProps: { user }
-			});
+			Store.save('currentUser', user);
+			return this.redirectToAgendas(user);
 		}	
+	}
+
+	redirectToAgendas(user)
+	{
+		this.props.navigator.replace({
+			title: 'Agendas',
+			component: Agendas,
+			passProps: { user }
+		});
 	}
 
 	render()
@@ -131,15 +136,6 @@ class Login extends Component
 						</View>	
 
 						<View style={styles.actions}>
-							<TouchableHighlight onPress={() => this.props.navigator.replace({
-								title: 'Agendas', 
-								component: Agendas,
-								passProps: {}
-							})}
-							>
-								<Text style={styles.link}>View Agendas</Text>
-							</TouchableHighlight>
-
 							<Text style={styles.link}>Create New Event Account</Text>
 							<Text style={styles.link}>Forgot Password?</Text>
 						</View>
