@@ -35,7 +35,6 @@ class Menu extends Component {
 
 		this.state = {
 			infoIcon: null,
-			currentUser: [],
 		}
 	}
 	
@@ -46,7 +45,7 @@ class Menu extends Component {
 
 	componentDidMount()
 	{
-		this.setCurrentUser();
+		// this.setCurrentUser();
 	}
 
 	render() {
@@ -125,6 +124,7 @@ class Menu extends Component {
 						</View>
 						<TouchableHighlight 
 							underlayColor={'#ddd'}
+							onPress={this.logout.bind(this)}
 						>
 							<View style={styles.link}>
 								<Icon name="info-outline" size={24} style={styles.icon} />
@@ -139,58 +139,59 @@ class Menu extends Component {
 
 	viewMessages()
 	{
-		this.setCurrentUser();
 		this.props.closeSidebar();
-
-		this.props.navigator.replace({
-			title: 'Messages',
-			component: Messages,
-			passProps: { currentUser: this.state.currentUser }
-		});
+		
+		Store.get('currentUser')
+			.then((currentUser) => {
+				this.props.navigator.replace({
+					title: 'Messages',
+					component: Messages,
+					passProps: { currentUser }
+				});
+			});
 	}
 
 	viewAgendas()
 	{
 		this.props.closeSidebar();
-
-		this.props.navigator.replace({
-			title: 'Agendas',
-			component: Agendas,
-			passProps: {}
-		});
+		
+		Store.get('currentUser')
+			.then((currentUser) => {
+				this.props.navigator.replace({
+					title: 'Agendas',
+					component: Agendas,
+					passProps: { currentUser }
+				});
+			});			
 	}
 
 	viewSpeakers()
 	{
 		this.props.closeSidebar();
 
-		this.props.navigator.replace({
-			title: 'Speakers',
-			component: Speakers,
-			passProps: {}
-		});
+		Store.get('currentUser')
+			.then((currentUser) => {
+				this.props.navigator.replace({
+					title: 'Speakers',
+					component: Speakers,
+					passProps: { currentUser }
+				});
+			});		
 	}
 
 	logout()
 	{
-		// Store.delete('currentUser');
 		this.props.closeSidebar();
 
-		this.props.navigator.replace({
-			title: '',
-			component: Login,
-			passProps: {}
-		});
-	}
-
-	setCurrentUser()
-	{
-		return Store.get('currentUser')
+		Store.get('currentUser')
 			.then((currentUser) => {
-				this.setState({
-					currentUser
-				})
-			})
+				Store.delete('currentUser');
+				this.props.navigator.replace({
+					title: '',
+					component: Login,
+					passProps: {}
+				});
+			});
 	}
 }
 

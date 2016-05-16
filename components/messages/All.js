@@ -49,15 +49,12 @@ class All extends Component
 		fetch(url)
 			.then((response) => response.json())
 			.then((responseData) => {
+				console.log(responseData);
 				this.setState({
 					threads: this.state.threads.cloneWithRows(responseData),
 					loaded: true,
-				})
-			})
-			.catch((error) => {
-				console.warn(error)
-			})
-			.done();
+				});
+			});
 	}
 
 	render()
@@ -80,18 +77,26 @@ class All extends Component
 		return (
 			<ThreadRow 
 				thread={thread} 
+				currentUser={this.props.currentUser}
 				onPress={() => this.showThread(thread)} />
 		)
 	}
 
 	showThread(thread)
 	{
+		let name = thread.receiver.name;
+
+		if( this.props.currentUser.id === thread.receiver_id )
+		{
+			name = thread.sender.name;
+		}
+
 		this.props.navigator.push({
-			title: `Chat with ${thread.user.name}`,
+			title: `Chat with ${name}`,
 			component: ShowThread,
 			passProps: { 
 				thread,
-				otherUser: thread.user, 
+				otherUser: thread.receiver_id, 
 				currentUser: this.props.currentUser
 			}
 		})

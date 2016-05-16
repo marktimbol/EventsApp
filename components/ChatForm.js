@@ -28,7 +28,12 @@ class ChatForm extends Component
 	onSubmit(e)
 	{
 		e.preventDefault();
-		this.props.onStartThread(this.state.message);
+
+		let message = this.state.message;
+		this.setState({
+			message: ''
+		});
+		this.props.onStartThread(message);
 	}
 
 	render()
@@ -43,6 +48,7 @@ class ChatForm extends Component
 							autoCorrect={false}
 							autoCapitalize={'none'}
 							multiline={true}
+							value={this.state.message}
 							onChangeText={(message) => this.setState({ message })}
 							style={styles.inputText} />
 					</ScrollView>

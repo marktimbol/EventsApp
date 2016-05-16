@@ -16,8 +16,21 @@ import GS from '../GlobalStyles';
 
 class ThreadRow extends Component
 {
+	componentDidMount()
+	{
+		console.log(this.props.currentUser, this.props.thread);
+	}
+
 	render()
 	{
+		let lastSentMessage = this.props.thread.messages[this.props.thread.messages.length - 1].message;
+		
+		let name = this.props.thread.receiver.name;
+		if( this.props.currentUser.id === this.props.thread.receiver_id )
+		{
+			name = this.props.thread.sender.name;
+		}
+
 		return (
 			<TouchableHighlight underlayColor={'#ddd'} 
 				onPress={this.props.onPress}
@@ -30,10 +43,10 @@ class ThreadRow extends Component
 					<View style={styles.right}>
 						<View>
 							<Text style={[GS.themeFont, styles.subtitle]}>
-								{this.props.thread.user.name}
+								{ name }
 							</Text>
 							<Text style={[GS.themeFont, GS.body]} numberOfLines={2}>
-								{this.props.thread.subject}
+								{ lastSentMessage }
 							</Text>
 						</View>
 					</View>

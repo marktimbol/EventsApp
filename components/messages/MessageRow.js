@@ -11,6 +11,7 @@ import {
 	Image
 } from 'react-native';
 
+import Pusher from 'pusher-js/react-native';
 import GS from '../GlobalStyles';
 
 class MessageRow extends Component
@@ -86,7 +87,7 @@ class MessageRow extends Component
 		return (
 			<View style={styles.bodyContainer}>
 				<View style={styles.spacer}></View>
-				<Text style={[GS.body, styles.body]}>
+				<Text style={[GS.body, styles.body, styles.senderBg]}>
 					{this.props.message.message}
 				</Text>
 			</View>
@@ -98,7 +99,6 @@ const styles = StyleSheet.create({
 	message: {
 		padding: 10,
 		flexDirection: 'row',
-		backgroundColor: 'white',
 	},
 
 	left: {
@@ -118,8 +118,9 @@ const styles = StyleSheet.create({
 		flex: 0.8,
 		color: '#333',
 		padding: 10,
+		// borderRadius: 10,
 		marginHorizontal: 10,
-		backgroundColor: '#ddd',
+		backgroundColor: '#E9E9E9',
 	},
 
 	spacer: {
@@ -131,6 +132,11 @@ const styles = StyleSheet.create({
 		height: 30,
 		borderRadius: 15,
 	},
+
+	senderBg: {
+		color: 'white',
+		backgroundColor: '#0089FF',
+	}
 })
 
 module.exports = MessageRow;
