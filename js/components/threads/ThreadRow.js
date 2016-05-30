@@ -16,19 +16,19 @@ import GS from '../GlobalStyles';
 
 class ThreadRow extends Component
 {
-	componentDidMount()
+	constructor(props)
 	{
-		console.log(this.props.currentUser, this.props.thread);
+		super(props);
 	}
 
 	render()
 	{
-		let lastSentMessage = this.props.thread.messages[this.props.thread.messages.length - 1].message;
-		
-		let name = this.props.thread.receiver.name;
-		if( this.props.currentUser.id === this.props.thread.receiver_id )
-		{
-			name = this.props.thread.sender.name;
+		let { thread, currentUser } = this.props;
+		let lastSentMessage = thread.messages[thread.messages.length - 1].message;
+
+		let name = thread.receiver.name;
+		if( currentUser.id === thread.receiver_id ) {
+			name = thread.sender.name;
 		}
 
 		return (

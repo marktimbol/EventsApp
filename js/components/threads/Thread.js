@@ -14,10 +14,10 @@ import {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as threadActionCreators from '../../actions/thread';
+import * as userThreadsActionCreators from '../../actions/threads';
 
 import Pusher from 'pusher-js/react-native';
-import ThreadRow from './ThreadRow';
+import ThreadMessageRow from './ThreadMessageRow';
 import ChatForm from '../ChatForm';
 
 import GS from '../GlobalStyles';
@@ -34,9 +34,6 @@ class Thread extends Component
 
 	componentDidMount()
 	{
-		console.log(this.props);
-		// let { thread, currentUser } = this.props;
-		// this.props.fetchSingleThread(thread.id, currentUser.api_token);
 		this.listenToIncomingMessage();
 	}
 
@@ -46,16 +43,15 @@ class Thread extends Component
 		let channel = pusher.subscribe('whenUserReplied-'+this.props.thread.id);
 		
 		channel.bind('App\\Events\\UserReplied', function(data) {
-			let newMessage = data.message;
-			this.setState({
-				messages: this.state.messages.concat(newMessage)
-			});
+			console.log('UserReplied', data);
+			// let newMessage = data.message;
 		}.bind(this));
 	}
 
 	render()
 	{
 		let { thread } = this.props;
+		console.log('Render thread', thread);
 
 		const messages = thread.messages.map((message, index) => {
 			// if message.user_id == this.props.currentUser.id then align the message to the right
@@ -65,7 +61,7 @@ class Thread extends Component
 			}
 
 			return (
-				<ThreadRow 
+				<ThreadMessageRow 
 					key={index} 
 					message={message}
 					alignRight={alignRight} />
@@ -118,28 +114,9 @@ class Thread extends Component
 
 	replyTo(message)
 	{
-		const url = `${domain}/api/threads/${this.props.thread.id}/replies`;
-
-		fetch(url, {
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				api_token: this.props.currentUser.api_token,
-				receiver_id: this.props.otherUser,
-				message: message
-			})
-		})
-		.then((response) => response.json())
-		.then((responseData) => {
-			console.log(responseData);
-			// this.setState({
-			// 	messages: this.state.messages.concat(responseData)
-			// });
-		})
-		.done();
+		let { thread, currentUser, otherUser } = this.props;
+		// reply to the other user on this thread id with this message and i am current user
+		this.props.replyTo(otherUser, thread, message, currentUser); 
 	}
 
 	loading()
@@ -151,11 +128,13 @@ class Thread extends Component
 }
 
 const mapStateToProps = (state) => {
-	return { }
+	return { 
+		threads: state.threads
+	}
 }
 
 const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators(threadActionCreators, dispatch)
+	return bindActionCreators(userThreadsActionCreators, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Thread);
@@ -166,12 +145,12 @@ const styles = StyleSheet.create({
 	},
 
 	scrollView: {
-		flex: 0.8,
-		backgroundColor: '#FAFAFA',
+		flex: 0.9,
+		backgroundColor: 'white',
 	},
 
 	form: {
-		flex: 0.2,
+		flex: 0.1,
 	}
 
 });

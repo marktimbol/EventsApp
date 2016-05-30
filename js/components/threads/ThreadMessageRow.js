@@ -14,30 +14,22 @@ import {
 import Pusher from 'pusher-js/react-native';
 import GS from '../GlobalStyles';
 
-class MessageRow extends Component
+class ThreadMessageRow extends Component
 {
-	constructor(props)
-	{
-		super(props);
-	}
-
 	render()
 	{
-		if( this.props.alignRight )
-		{
+		if( this.props.alignRight ) {
 			return this.rightAlignMessage();
 		}
-		else
-		{
-			return this.leftAlignMessage();
-		}
+		
+		return this.leftAlignMessage();
 	}
 
 	rightAlignMessage()
 	{
 		return (
 			<View style={[styles.message]}>
-				<View style={[styles.right, styles.rightAlign]}>
+				<View style={[styles.right]}>
 					{ this.renderRightAlignMessage() }
 				</View>
 
@@ -110,15 +102,14 @@ const styles = StyleSheet.create({
 	},
 
 	bodyContainer: {
-		flex: 1,
 		flexDirection: 'row',
 	},
 
 	body: {
-		flex: 0.8,
 		color: '#333',
-		padding: 10,
-		// borderRadius: 10,
+		paddingVertical: 5,
+		paddingHorizontal: 10,
+		borderRadius: 2,
 		marginHorizontal: 10,
 		backgroundColor: '#E9E9E9',
 	},
@@ -135,8 +126,9 @@ const styles = StyleSheet.create({
 
 	senderBg: {
 		color: 'white',
-		backgroundColor: '#0089FF',
+		backgroundColor: '#f44336',
+		textAlign: 'right'
 	}
 })
 
-module.exports = MessageRow;
+module.exports = ThreadMessageRow;

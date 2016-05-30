@@ -52,7 +52,6 @@ class Threads extends Component
 	showThread(thread)
 	{
 		let name = thread.receiver.name;
-
 		if( this.props.currentUser.id === thread.receiver_id ) {
 			name = thread.sender.name;
 		}

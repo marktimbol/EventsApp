@@ -17,10 +17,7 @@ const authenticateUser = (email, password) => {
 		})
 		.then((response) => response.json())
 		.then((result) => {
-			console.log('authenticateUser', result);
-
 			dispatch(onAuthenticateUser(result));
-
 			if( ! result.authenticated ) {
 				return Actions.login({ message: 'Invalid email / password'});
 			}
