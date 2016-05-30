@@ -18,6 +18,14 @@ const fetchedUserThreads = (threads) => {
 	}
 }
 
+const getSingleThread = (thread) => {
+	return {
+		type: 'GET_SINGLE_THREAD',
+		thread
+	}
+}
+
+
 const replyTo = (otherUser, thread, message, currentUser) => {
 	return (dispatch) => {
 		const url = `${apiUrl}/threads/${thread.id}/replies`;
@@ -35,15 +43,15 @@ const replyTo = (otherUser, thread, message, currentUser) => {
 		})
 		.then((response) => response.json())
 		.then((data) => {
-			// dispatch(fetchUserThreads(currentUser));
-			dispatch(updateMessages(data));
+			dispatch(updateThread(data));
+			dispatch(fetchUserThreads(currentUser));
 		});
 	}
 }
 
-const updateMessages = (message) => {
+const updateThread = (message) => {
 	return {
-		type: 'UPDATE_MESSAGES',
+		type: 'UPDATE_THREAD',
 		message
 	}
 }
@@ -51,6 +59,7 @@ const updateMessages = (message) => {
 export {
 	fetchUserThreads,
 	fetchedUserThreads,
+	getSingleThread,
 	replyTo,
-	updateMessages,
+	updateThread,
 }

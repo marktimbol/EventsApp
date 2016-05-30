@@ -16,11 +16,6 @@ import GS from '../GlobalStyles';
 
 class ThreadRow extends Component
 {
-	constructor(props)
-	{
-		super(props);
-	}
-
 	render()
 	{
 		let { thread, currentUser } = this.props;

@@ -22,12 +22,12 @@ import * as userThreadActionCreators from '../../actions/threads';
 import ThreadRow from './ThreadRow';
 
 import GS from '../GlobalStyles';
-const domain = 'http://mecsc.dev';
 
 class Threads extends Component
 {
 	componentDidMount()
 	{
+		console.log(this.props);
 		this.props.fetchUserThreads(this.props.currentUser);
 	}
 
@@ -56,10 +56,11 @@ class Threads extends Component
 			name = thread.sender.name;
 		}
 
+		this.props.getSingleThread(thread);
+
 		Actions.thread({
 			currentUser: this.props.currentUser,
-			otherUser: thread.receiver_id,
-			thread
+			otherUser: thread.receiver_id
 		});
 	}
 

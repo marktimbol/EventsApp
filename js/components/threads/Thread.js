@@ -50,13 +50,12 @@ class Thread extends Component
 
 	render()
 	{
-		let { thread } = this.props;
-		console.log('Render thread', thread);
+		let { thread, currentUser } = this.props;
 
 		const messages = thread.messages.map((message, index) => {
-			// if message.user_id == this.props.currentUser.id then align the message to the right
+			// Align message to the right?
 			let alignRight = false;
-			if( this.props.currentUser.id === message.sender_id ) {
+			if( currentUser.id === message.sender_id ) {
 				alignRight = true;
 			}
 
@@ -129,7 +128,7 @@ class Thread extends Component
 
 const mapStateToProps = (state) => {
 	return { 
-		threads: state.threads
+		thread: state.thread
 	}
 }
 
