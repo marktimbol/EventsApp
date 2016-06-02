@@ -17,6 +17,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
 import * as threadActionCreators from '../../actions/threads';
+import * as userActionCreators from '../../actions/user';
 import GS from '../GlobalStyles';
 
 class Speaker extends Component
@@ -81,7 +82,7 @@ class Speaker extends Component
 	{
 		let { currentUser, speaker } = this.props;
 
-		this.props.checkIfTheyHaveConversation(currentUser.id, speaker.id);
+		this.props.checkIfTheyHaveConversation(currentUser, speaker.id);
 
 		Actions.thread({
 			currentUser: currentUser,
@@ -181,7 +182,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators(threadActionCreators, dispatch)
+	return bindActionCreators(Object.assign({}, threadActionCreators, userActionCreators), dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Speaker);

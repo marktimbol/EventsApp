@@ -14,7 +14,8 @@ import {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as userThreadsActionCreators from '../../actions/threads';
+import * as threadActionCreators from '../../actions/threads';
+import * as userActionCreators from '../../actions/user';
 
 import Pusher from 'pusher-js/react-native';
 import ThreadMessageRow from './ThreadMessageRow';
@@ -142,7 +143,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators(userThreadsActionCreators, dispatch)
+	return bindActionCreators(Object.assign({}, threadActionCreators, userActionCreators), dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Thread);

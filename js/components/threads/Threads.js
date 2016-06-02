@@ -17,7 +17,8 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
-import * as userThreadActionCreators from '../../actions/threads';
+import * as threadActionCreators from '../../actions/threads';
+import * as userActionCreators from '../../actions/user';
 import ThreadRow from './ThreadRow';
 import GS from '../GlobalStyles';
 
@@ -42,8 +43,6 @@ class Threads extends Component
 
 	componentWillReceiveProps(nextProps)
 	{
-		console.log('componentWillReceiveProps', nextProps);
-
 		this.setState({
 			threads: this.state.threads.cloneWithRows(nextProps.threads)
 		})
@@ -103,7 +102,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators(userThreadActionCreators, dispatch);
+	return bindActionCreators(Object.assign({}, threadActionCreators, userActionCreators), dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Threads);
