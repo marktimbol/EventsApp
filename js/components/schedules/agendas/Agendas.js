@@ -35,7 +35,7 @@ class Agendas extends Component
 
 	viewAgenda(agenda)
 	{
-		Actions.agenda({ agenda, currentUser: this.props.currentUser });		
+		Actions.agenda({ agenda });		
 	}
 }
 

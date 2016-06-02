@@ -19,12 +19,12 @@ class Agenda extends Component
 {
 	render()
 	{
-		let { agenda, currentUser } = this.props;
+		let { agenda } = this.props;
 		let speakers;
 
 		if( agenda.speakers.length > 0 )
 		{
-			speakers = this.showSpeakers(agenda.speakers, currentUser);
+			speakers = this.showSpeakers(agenda.speakers);
 		}
 
 		return (
@@ -64,12 +64,11 @@ class Agenda extends Component
 		)
 	}
 
-	showSpeakers(speakers, currentUser)
+	showSpeakers(speakers)
 	{
 		return (
 			<AgendaSpeakers 
-				speakers={speakers} 
-				currentUser={currentUser} />
+				speakers={speakers}  />
 		)
 	}
 }

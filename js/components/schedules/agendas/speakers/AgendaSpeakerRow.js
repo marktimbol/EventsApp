@@ -52,11 +52,7 @@ class AgendaSpeakerRow extends Component
 
 	onPress(speaker)
 	{
-		let { currentUser } = this.props;
-
-		Actions.speaker({
-			speaker, currentUser
-		});
+		Actions.speaker({ speaker });
 	}
 }
 

@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
 	return {
-
+		currentUser: state.user,
 	}
 }
 

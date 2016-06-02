@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 
 import Pusher from 'pusher-js/react-native';
+import TimeAgo from 'react-native-timeago';
+
 import GS from '../GlobalStyles';
 
 class ThreadMessageRow extends Component
@@ -66,9 +68,12 @@ class ThreadMessageRow extends Component
 	{
 		return (
 			<View style={styles.bodyContainer}>
-				<Text style={[GS.body, styles.body]}>
-					{this.props.message.message}
-				</Text>
+				<View>
+					<Text style={[GS.body, styles.body]}>
+						{this.props.message.message}
+					</Text>
+					<Text>{ this.props.message.created_at }</Text>
+				</View>
 				<View style={styles.spacer}></View>
 			</View>
 		)
@@ -76,12 +81,18 @@ class ThreadMessageRow extends Component
 
 	renderRightAlignMessage()
 	{
+		let { message } = this.props;
+		console.log(message.created_at);
+		
 		return (
 			<View style={styles.bodyContainer}>
 				<View style={styles.spacer}></View>
-				<Text style={[GS.body, styles.body, styles.senderBg]}>
-					{this.props.message.message}
-				</Text>
+				<View style={styles.messageWithDateContainer}>
+					<Text style={[GS.body, styles.body, styles.senderBg]}>
+						{message.message}
+					</Text>
+					<TimeAgo style={styles.time} time={message.created_at} />
+				</View>
 			</View>
 		)
 	}
@@ -99,6 +110,7 @@ const styles = StyleSheet.create({
 
 	right: {
 		flex: 0.9,
+		marginRight: 10,
 	},
 
 	bodyContainer: {
@@ -110,7 +122,6 @@ const styles = StyleSheet.create({
 		paddingVertical: 5,
 		paddingHorizontal: 10,
 		borderRadius: 2,
-		marginHorizontal: 10,
 		backgroundColor: '#E9E9E9',
 	},
 
@@ -128,6 +139,19 @@ const styles = StyleSheet.create({
 		color: 'white',
 		backgroundColor: '#f44336',
 		textAlign: 'right'
+	},
+
+	messageWithDateContainer: {
+		// flex: 1,
+		flexDirection: 'column',
+		// backgroundColor: '#ddd'
+	},
+
+	time: {
+		fontSize: 8,
+		color: '#888',
+		textAlign: 'right',
+		marginTop: 2,
 	}
 })
 

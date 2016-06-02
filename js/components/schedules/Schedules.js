@@ -50,7 +50,6 @@ class Schedules extends Component
 					key={index}
 					tabLabel={`Day ${index+1}`} 
 					agendas={schedule.agendas} 
-					currentUser={currentUser}
 					style={[GS.themeFont]} />
 			)
 		})

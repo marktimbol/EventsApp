@@ -23,8 +23,7 @@ class AgendaSpeakers extends Component
 				<AgendaSpeakerRow 
 					key={index}
 					speaker={speaker} 
-					roles={speaker.roles} 
-					currentUser={this.props.currentUser} />
+					roles={speaker.roles} />
 			)
 		});
 		
