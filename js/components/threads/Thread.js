@@ -47,8 +47,6 @@ class Thread extends Component
 	{
 		let { thread, currentUser, isSending, hasConversation } = this.props;
 		let messages;
-		console.log('Thread', thread);
-
 		if( hasConversation )
 		{
 			messages = thread.messages.map((message, index) => {

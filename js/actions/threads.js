@@ -96,6 +96,7 @@ export const checkIfTheyHaveConversation = (currentUserId, otherUserId) => {
 			.then((response) => response.json())
 			.then((result) => {
 				if( result.haveConversation ) {
+					console.log('checkIfTheyHaveConversation', result);
 					dispatch(status.haveConversation());
 					dispatch(setCurrentThread(result.thread));
 				} else {

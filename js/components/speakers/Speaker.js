@@ -82,7 +82,6 @@ class Speaker extends Component
 		let { currentUser, speaker } = this.props;
 
 		this.props.checkIfTheyHaveConversation(currentUser.id, speaker.id);
-		// this.props.fetchThread(currentUser, speaker.id);
 
 		Actions.thread({
 			currentUser: currentUser,
