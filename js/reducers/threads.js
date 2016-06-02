@@ -1,7 +1,7 @@
 const threads = (state=[], action) => {
 	switch( action.type )
 	{
-		case 'FETCHED_USER_THREADS':
+		case 'USER_THREADS_WAS_FETCHED':
 			return action.threads;
 		default:
 			return state;

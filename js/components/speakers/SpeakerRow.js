@@ -46,14 +46,9 @@ class SpeakerRow extends Component
 	viewSpeaker(speaker)
 	{
 		Actions.speaker({
-			speaker
+			speaker,
+			currentUser: this.props.currentUser
 		});
-
-		// this.props.navigator.push({
-		// 	title: speaker.name,
-		// 	component: Speaker,
-		// 	passProps: { speaker }
-		// })
 	}
 }
 

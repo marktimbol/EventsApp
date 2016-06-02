@@ -19,7 +19,6 @@ import * as scheduleActionCreators from '../../actions/schedules';
 
 import Agendas from './agendas/Agendas';
 import GS from './../GlobalStyles';
-const domain = 'http://mecsc.dev';
 
 class Schedules extends Component
 {
@@ -39,18 +38,19 @@ class Schedules extends Component
 
 	render()
 	{
-		if( this.props.loading )
-		{
+		let { loading, schedules, currentUser } = this.props;
+
+		if( loading ) {
 			return this.showLoading();
 		}
 
-		let schedules = this.props.schedules.map((schedule, index) => {
+		let agendas = schedules.map((schedule, index) => {
 			return (
 				<Agendas 
 					key={index}
 					tabLabel={`Day ${index+1}`} 
 					agendas={schedule.agendas} 
-					currentUser={this.props.currentUser}
+					currentUser={currentUser}
 					style={[GS.themeFont]} />
 			)
 		})
@@ -65,7 +65,7 @@ class Schedules extends Component
 				tabBarTextStyle={styles.tabBarText}
 				style={styles.tabView}
 				>
-					{schedules}
+					{agendas}
 			</ScrollableTabView>
 		)
 	}
@@ -74,7 +74,7 @@ class Schedules extends Component
 const mapStateToProps = (state) => {
 	return {
 		loading: state.schedules.loading,
-		schedules: state.schedules.items
+		schedules: state.schedules
 	}
 }
 

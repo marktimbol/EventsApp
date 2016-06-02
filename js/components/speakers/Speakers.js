@@ -6,9 +6,11 @@ import React, {
 
 import {
 	View,
+	Text,
 	ScrollView,
 	ActivityIndicatorIOS,
 	StyleSheet,
+	ListView,
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
@@ -17,50 +19,56 @@ import * as speakerActionCreators from '../../actions/speakers';
 
 import SpeakerRow from './SpeakerRow';
 import GS from './../GlobalStyles';
-const domain = 'http://mecsc.dev';
 
 class Speakers extends Component
 {
+	constructor(props)
+	{
+		super(props);
+		this.state = {
+			speakers: new ListView.DataSource({
+				rowHasChanged: (row1, row2) => row1 !== row2
+			})
+		}
+	}
+
 	componentDidMount()
 	{
-		this.props.fetchSpeakers();
+		this.setState({
+			speakers: this.state.speakers.cloneWithRows(this.props.speakers)
+		})
 	}
 
 	render()
 	{
-		if( this.props.loading ) {
-			return this.showLoading();
-		}
-
-		let speakers = this.props.speakers.map((speaker, index) => {
-			return (
-				<SpeakerRow 
-					key={index} 
-					speaker={speaker} />
-			)
-		})
 		return (
-			<ScrollView style={styles.scrollView}>
-				{ speakers }
-				<View style={styles.footer}></View>
-			</ScrollView>
+			<ListView
+				style={styles.listView}
+				dataSource={this.state.speakers}
+				renderRow={this.renderRow.bind(this)}
+				renderSectionHeader={this.renderSectionHeader} />
 		)
 	}
 
-	showLoading()
+	renderRow(speaker, sectionID, rowID)
 	{
 		return (
-			<View style={GS.loading}>
-				<ActivityIndicatorIOS animating={true} size={'large'} />
-			</View>
+			<SpeakerRow speaker={speaker} currentUser={this.props.currentUser} />
+		)
+	}
+
+	renderSectionHeader()
+	{
+		return (
+			<Text style={GS.sectionHeader}>Speakers</Text>
 		)
 	}
 }
 
 const mapStateToProps = (state) => {
 	return {
-		loading: state.speakers.loading,
-		speakers: state.speakers.items
+		speakers: state.speakers,
+		currentUser: state.user
 	}
 }
 
@@ -71,12 +79,12 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(Speakers);
 
 const styles = StyleSheet.create({
-	scrollView: {
+	listView: {
 		backgroundColor: 'white'
 	},
 
-	footer: {
-		height: 60,
+	sectionHeader: {
+		padding: 5,
 	}
 })
 

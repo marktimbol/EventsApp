@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { Router, Scene } from 'react-native-router-flux';
 
 import Login from '../components/Login';
+import Home from '../components/Home';
 import Threads from '../components/threads/Threads';
 import Thread from '../components/threads/Thread';
 import Schedules from '../components/schedules/Schedules';
@@ -36,9 +37,10 @@ class AIMCongress extends Component
 			>
 				<Scene key="root">
 					<Scene key="login" component={Login} title="" type="refresh" initial={true} />
-					<Scene key="threads" component={Threads} type="replace" title="Threads" />
-					<Scene key="thread" component={Thread} title="Messages" />
-					<Scene key="schedules" component={Schedules} title="Schedules" type="replace" />
+					<Scene key="home" component={Home} title="AIM Congress" type="replace" initial={false} />
+					<Scene key="threads" component={Threads} title="Threads" />
+					<Scene key="thread" component={Thread} title="Chat" />
+					<Scene key="schedules" component={Schedules} title="Schedules" />
 					<Scene key="agenda" component={Agenda} title="Agenda" />
 					<Scene key="speakers" component={Speakers} title="Speakers" />
 					<Scene key="speaker" component={Speaker} title="Speaker" />
@@ -56,7 +58,7 @@ const styles = StyleSheet.create({
 	},
 
 	scene: {
-		paddingTop: 60,
+		paddingTop: 64,
 	},
 
 	title: {

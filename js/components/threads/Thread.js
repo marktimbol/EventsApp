@@ -24,17 +24,12 @@ import GS from '../GlobalStyles';
 
 class Thread extends Component
 {
-	constructor(props)
-	{
-		super(props);
-		this.state = {
-			hasCommunicated: true,
-		}
-	}
-
 	componentDidMount()
 	{
+		console.log('Thread props', this.props);
+
 		this.listenToIncomingMessage();
+		this.scrollToBottom();
 	}
 
 	listenToIncomingMessage()
@@ -50,27 +45,35 @@ class Thread extends Component
 
 	render()
 	{
-		let { thread, currentUser } = this.props;
+		let { thread, currentUser, isSending, hasConversation } = this.props;
+		let messages;
+		console.log('Thread', thread);
 
-		const messages = thread.messages.map((message, index) => {
-			// Align message to the right?
-			let alignRight = false;
-			if( currentUser.id === message.sender_id ) {
-				alignRight = true;
-			}
-
-			return (
-				<ThreadMessageRow 
-					key={index} 
-					message={message}
-					alignRight={alignRight} />
-			)
-		});
+		if( hasConversation )
+		{
+			messages = thread.messages.map((message, index) => {
+				// Align message to the right?
+				let alignRight = false;
+				if( currentUser.id === message.sender_id ) {
+					alignRight = true;
+				}
+				return (
+					<ThreadMessageRow 
+						key={index} 
+						message={message}
+						alignRight={alignRight} />
+				)
+			});
+		}
 
 		return (
 			<View style={styles.messages}>
-				<ScrollView style={styles.scrollView}>
+				<ScrollView 
+					ref={component => this._scrollView = component}
+					style={styles.scrollView}
+				>
 					{messages}
+					{ isSending ? this.loading() : <View></View> }
 				</ScrollView>
 				<View style={styles.form}>
 					<ChatForm 
@@ -80,55 +83,63 @@ class Thread extends Component
 		)
 	}
 
+    scrollToBottom()
+    {
+    	// scrollTo bottom
+        let innerScrollView = this._scrollView.refs.InnerScrollView;
+        let scrollView = this._scrollView.refs.ScrollView;
+
+        requestAnimationFrame(() => {
+            innerScrollView.measure((innerScrollViewX, innerScrollViewY, innerScrollViewWidth, innerScrollViewHeight) => {
+                scrollView.measure((scrollViewX, scrollViewY, scrollViewWidth, scrollViewHeight) => {
+                    var scrollTo = innerScrollViewHeight - scrollViewHeight + innerScrollViewY;
+
+                    if (innerScrollViewHeight < scrollViewHeight) {
+                        return;
+                    }
+
+                    this._scrollView.scrollTo({ x: 0, y: scrollTo, animated: true });
+                });
+            });
+        });
+    }
+
 	submitForm(message)
 	{
-		return ! this.state.hasCommunicated ? this.startThread(message) : this.replyTo(message);
+		return ! this.props.hasConversation ? this.startThread(message) : this.replyTo(message);
 	}
 
 	startThread(message)
 	{
-		const url = `${domain}/api/threads`;
+		console.log('startThread()');
 
-		fetch(url, {
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				api_token: this.props.currentUser.api_token,
-				receiver_id: this.props.otherUser,
-				message: message
-			})
-		})
-		.then((response) => response.json())
-		.then((responseText) => {
-			console.log(responseText);
-		})
-		.catch((error) => {
-			console.warn(error);
-		})
-		.done();
+		let { currentUser, otherUser } = this.props;
+		this.props.startThread(currentUser, otherUser, message);
 	}
 
 	replyTo(message)
 	{
+		console.log('replyTo()');
+
 		let { thread, currentUser, otherUser } = this.props;
-		// reply to the other user on this thread id with this message and i am current user
-		this.props.replyTo(otherUser, thread, message, currentUser); 
+		// reply to the other user on this thread id 
+		// with this message and i am current user 
+		this.props.replyTo(otherUser, thread, message, currentUser);
 	}
 
 	loading()
 	{
 		return (
-			<ActivityIndicatorIOS animating={true} size={'large'} style={GS.loading} />
+			<ActivityIndicatorIOS animating={true} size={'small'} style={[GS.loading, styles.loading]} />
 		)
 	}
 }
 
 const mapStateToProps = (state) => {
 	return { 
-		thread: state.thread
+		isSending: state.is.sending,
+		hasConversation: state.is.hasConversation,
+		thread: state.thread,
 	}
 }
 
@@ -150,6 +161,11 @@ const styles = StyleSheet.create({
 
 	form: {
 		flex: 0.1,
+	},
+
+	loading: {
+		alignItems: 'flex-end',
+		margin: 15,
 	}
 
 });

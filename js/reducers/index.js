@@ -4,6 +4,7 @@ import threads from './threads';
 import thread from './thread';
 import schedules from './schedules';
 import speakers from './speakers';
+import is from './is';
 
 const rootReducer = combineReducers({
 	user,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
 	thread,
 	schedules,
 	speakers,
+	is,
 });
 
 export default rootReducer;

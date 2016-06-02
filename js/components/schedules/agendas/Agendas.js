@@ -28,6 +28,7 @@ class Agendas extends Component
 		return (
 			<ScrollView style={styles.scrollView}>
 				{agendas}
+				<View style={styles.footer}></View>
 			</ScrollView>
 		)
 	}
@@ -43,6 +44,10 @@ const styles = StyleSheet.create({
 		paddingTop: 20,
 		backgroundColor: 'white',
 	},
+
+	footer: {
+		height: 50,
+	}
 })
 
 module.exports = Agendas;

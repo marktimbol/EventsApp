@@ -1,10 +1,11 @@
 import { apiUrl } from '../env';
-import { showLoading } from './loading';
+import * as status from './status';
+import { fetchUserThreads } from './threads';
 import { Actions } from 'react-native-router-flux';
 
-const authenticateUser = (email, password) => {
+export const authenticateUser = (email, password) => {
 	return (dispatch) => {
-		dispatch(showLoading());
+		dispatch(status.authenticating());
 		fetch(`${apiUrl}/public/login`, {
 			method: 'POST',
 			headers: {
@@ -16,24 +17,23 @@ const authenticateUser = (email, password) => {
 			})
 		})
 		.then((response) => response.json())
-		.then((result) => {
-			dispatch(onAuthenticateUser(result));
-			if( ! result.authenticated ) {
-				return Actions.login({ message: 'Invalid email / password'});
+		.then((user) => {
+			if( user.api_token === '' )
+			{
+				dispatch(status.invalidCredentials());
+				return Actions.login({ message: 'Invalid email / password'});	
 			}
-			return Actions.threads();
+			dispatch(status.authenticated());
+			dispatch(userWasAuthenticated(user));
+			dispatch(fetchUserThreads(user));
+			return Actions.home();			
 		})
 	}
 }
 
-const onAuthenticateUser = (user) => {
+export const userWasAuthenticated = (user) => {
 	return {
-		type: 'AUTHENTICATE_USER',
+		type: 'USER_WAS_AUTHENTICATED',
 		user
 	}
-}
-
-export {
-	authenticateUser,
-	onAuthenticateUser
 }

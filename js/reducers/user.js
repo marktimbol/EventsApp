@@ -1,19 +1,8 @@
-let initialState = {
-	loading: false,
-	user: []
-}
-const currentUser = (state=initialState, action) => {
+const currentUser = (state=[], action) => {
 	switch( action.type )
 	{
-		case 'AUTHENTICATE_USER':
-			return Object.assign({}, state, {
-				loading: false,
-				user: action.user
-			})
-		case 'SHOW_LOADING':
-			return Object.assign({}, state, {
-				loading: true
-			})
+		case 'USER_WAS_AUTHENTICATED':
+			return action.user;
 		default:
 			return state;
 	}

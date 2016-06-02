@@ -27,23 +27,15 @@ import LoginForm from './LoginForm';
 
 class Login extends Component
 {
-	constructor(props)
-	{
-		super(props);
-	}
-
 	componentDidMount()
 	{
-		console.log(this.props);
-
-		// Download the internet
 		this.props.fetchSchedules();
 		this.props.fetchSpeakers();
 	}
 
 	render()
 	{
-		let { loading, authenticated, user } = this.props;
+		let { authenticating, authenticated, user } = this.props;
 
 		return (
 			<View style={styles.container}>
@@ -51,7 +43,7 @@ class Login extends Component
 					<View style={styles.logo}></View>
 				</View>
 
-				{ loading ?
+				{ authenticating ?
 					<View style={styles.loading}>
 						<ActivityIndicatorIOS animating={true} size={'large'} color={'white'} />
 					</View>
@@ -83,11 +75,10 @@ class Login extends Component
 }
 
 const mapStateToProps = (state) => {
-	console.log('mapStateToProps', state);
 	return {
-		loading: state.user.loading,
-		user: state.user.user,
-		authenticated: state.user.user.authenticated
+		authenticating: state.is.authenticating,
+		authenticated: state.is.authenticated,
+		user: state.user,
 	}
 }
 const mapDispatchToProps = (dispatch) => {

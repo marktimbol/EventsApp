@@ -4,6 +4,8 @@ import {
 	StyleSheet
 } from 'react-native';
 
+import { themeColor } from '../env';
+
 const GlobalStyles = StyleSheet.create({
 	themeFont: {
 		fontFamily: 'Lato-Regular',
@@ -56,6 +58,13 @@ const GlobalStyles = StyleSheet.create({
 
 	textCenter: {
 		textAlign: 'center',
+	},
+
+	sectionHeader: {
+		fontSize: 10,
+		color: 'white',
+		padding: 5,
+		backgroundColor: '#333'
 	}
 });
 

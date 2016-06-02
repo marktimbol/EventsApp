@@ -40,15 +40,6 @@ class Threads extends Component
 		})
 	}
 
-	componentWillReceiveProps(nextProps)
-	{
-		console.log('componentWillReceiveProps', nextProps);
-
-		this.setState({
-			threads: this.state.threads.cloneWithRows(nextProps.threads)
-		})
-	}
-
 	render()
 	{
 		return (

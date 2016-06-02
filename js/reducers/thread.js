@@ -1,6 +1,10 @@
-const thread = (state = [], action) => {
+let initialState = {
+	messages: []
+}
+
+const thread = (state = initialState, action) => {
 	switch(action.type) {
-		case 'GET_SINGLE_THREAD':
+		case 'SET_CURRENT_THREAD':
 			return action.thread;
 		case 'UPDATE_THREAD':		
 			return Object.assign({}, state, {
@@ -8,9 +12,9 @@ const thread = (state = [], action) => {
 				messages: [
 					...state.messages,
 					{
-						thread_id: action.message.thread_id,
-						sender_id: action.message.sender_id,
-						message: action.message.message
+						thread_id: action.thread.thread_id,
+						sender_id: action.thread.sender_id,
+						message: action.thread.message
 					}
 				]
 			})

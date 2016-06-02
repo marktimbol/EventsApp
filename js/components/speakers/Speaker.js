@@ -13,19 +13,23 @@ import {
 	ScrollView
 } from 'react-native';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
-
+import * as threadActionCreators from '../../actions/threads';
 import GS from '../GlobalStyles';
 
 class Speaker extends Component
 {
-	constructor(props)
+	componentDidMount()
 	{
-		super(props);
+		this.props.noConversation();
 	}
 
 	render()
 	{
+		let { speaker } = this.props;
+
 		return (
 			<ScrollView style={styles.scrollView}>
 				<View style={styles.imageContainer}>
@@ -35,13 +39,13 @@ class Speaker extends Component
 
 					<View>
 						<Text style={[GS.themeFont, styles.text, styles.name]}>
-							{this.props.speaker.name}
+							{speaker.name}
 						</Text>
 						<Text style={[GS.themeFont, styles.text, styles.designation]}>
-							{this.props.speaker.designation}
+							{speaker.designation}
 						</Text>
 						<Text style={[GS.themeFont, styles.text, styles.company]}>
-							{this.props.speaker.company}
+							{speaker.company}
 						</Text>
 					</View>
 				</View>
@@ -66,19 +70,23 @@ class Speaker extends Component
 				<View style={styles.about}>
 					<Text style={[GS.themeFont, GS.pageTitle]}>About</Text>
 					<Text style={[GS.themeFont, GS.body]}>
-						{this.props.speaker.about}
+						{speaker.about}
 					</Text>
 				</View>
 			</ScrollView>
-
 		)
 	}
 
 	startChat()
 	{
-		Actions.startChat({
-			otherUser: this.props.speaker.id,
-			currentUser: this.props.currentUser
+		let { currentUser, speaker } = this.props;
+
+		this.props.checkIfTheyHaveConversation(currentUser.id, speaker.id);
+		// this.props.fetchThread(currentUser, speaker.id);
+
+		Actions.thread({
+			currentUser: currentUser,
+			otherUser: speaker.id
 		});
 	}
 }
@@ -167,4 +175,16 @@ const styles = StyleSheet.create({
 	}
 })
 
-module.exports = Speaker;
+const mapStateToProps = (state) => {
+	return {
+
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators(threadActionCreators, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Speaker);
+
+
