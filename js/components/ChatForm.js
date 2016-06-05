@@ -50,7 +50,7 @@ class ChatForm extends Component
 							multiline={true}
 							value={this.state.message}
 							onChangeText={(message) => this.setState({ message })}
-							style={styles.inputText} />
+							style={styles.textarea} />
 					</ScrollView>
 				</View>
 				<View style={styles.button}>
@@ -69,26 +69,28 @@ const styles = StyleSheet.create({
 	form: {
 		flex: 1,
 		padding: 5,
-		alignItems: 'flex-start',
+		alignItems: 'center',
+		justifyContent: 'center',
 		flexDirection: 'row'
 	},
 
 	input: {
 		flex: 0.9,
-		marginVertical: 5,
 	},
 
-	inputText: {
-		height: 50,
-		padding: 5,
+	textarea: {
+		height: 40,
+		padding: 3,
 		color: '#333',
 		borderWidth: 1,
 		borderRadius: 2,
+		marginRight: 10,
 		borderColor: '#ddd',
 	},
 
 	button: {
-		flex: 0.1
+		flex: 0.1,
+		marginRight: 5,
 	}
 });
 

@@ -86,7 +86,6 @@ class Threads extends Component
 		this.props.haveConversation();
 		this.props.setCurrentThread(thread);
 
-		// Navigate to Thread
 		Actions.thread({
 			currentUser: this.props.currentUser,
 			otherUser: thread.receiver_id

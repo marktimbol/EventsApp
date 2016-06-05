@@ -64,7 +64,7 @@ const GlobalStyles = StyleSheet.create({
 		fontSize: 10,
 		color: 'white',
 		padding: 5,
-		backgroundColor: '#333'
+		backgroundColor: '#c62828'
 	}
 });
 
