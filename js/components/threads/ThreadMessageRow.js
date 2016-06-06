@@ -30,7 +30,7 @@ class ThreadMessageRow extends Component
 	rightAlignMessage()
 	{
 		return (
-			<View style={[styles.message]}>
+			<View style={[styles.messageContainer]}>
 				<View style={[styles.right]}>
 					{ this.renderRightAlignMessage() }
 				</View>
@@ -45,13 +45,13 @@ class ThreadMessageRow extends Component
 	leftAlignMessage()
 	{
 		return (
-			<View style={styles.message}>
+			<View style={styles.messageContainer}>
 				<View style={styles.left}>
 					{ this.renderAvatar() }
 				</View>
 
 				<View style={styles.right}>
-					{ this.renderMessage() }
+					{ this.renderLeftAlignMessage() }
 				</View>
 			</View>
 		)
@@ -64,15 +64,17 @@ class ThreadMessageRow extends Component
 		)	
 	}
 
-	renderMessage()
+	renderLeftAlignMessage()
 	{
+		let { message } = this.props;
+
 		return (
 			<View style={styles.bodyContainer}>
-				<View>
+				<View style={[styles.message, styles.pushLeft]}>
 					<Text style={[GS.body, styles.body]}>
-						{this.props.message.message}
+						{message.message}
 					</Text>
-					<Text>{ this.props.message.created_at }</Text>
+					<TimeAgo time={message.created_at} style={[styles.time, styles.timeAlignLeft]} />
 				</View>
 				<View style={styles.spacer}></View>
 			</View>
@@ -82,12 +84,11 @@ class ThreadMessageRow extends Component
 	renderRightAlignMessage()
 	{
 		let { message } = this.props;
-		console.log(message.created_at);
 		
 		return (
 			<View style={styles.bodyContainer}>
 				<View style={styles.spacer}></View>
-				<View style={styles.messageWithDateContainer}>
+				<View style={[styles.message, styles.pushRight]}>
 					<Text style={[GS.body, styles.body, styles.senderBg]}>
 						{message.message}
 					</Text>
@@ -99,9 +100,13 @@ class ThreadMessageRow extends Component
 }
 
 const styles = StyleSheet.create({
-	message: {
+	messageContainer: {
 		padding: 10,
 		flexDirection: 'row',
+	},
+
+	message: {
+		flex: 1,
 	},
 
 	left: {
@@ -110,10 +115,10 @@ const styles = StyleSheet.create({
 
 	right: {
 		flex: 0.9,
-		marginRight: 10,
 	},
 
 	bodyContainer: {
+		flex: 1,
 		flexDirection: 'row',
 	},
 
@@ -141,18 +146,24 @@ const styles = StyleSheet.create({
 		textAlign: 'right'
 	},
 
-	messageWithDateContainer: {
-		// flex: 1,
-		flexDirection: 'column',
-		// backgroundColor: '#ddd'
-	},
-
 	time: {
-		fontSize: 8,
+		fontSize: 7,
 		color: '#888',
 		textAlign: 'right',
 		marginTop: 2,
-	}
+	},
+
+	timeAlignLeft: {
+		textAlign: 'left'
+	},
+
+	pushLeft: {
+		marginLeft: 5,
+	},
+
+	pushRight: {
+		marginRight: 10,
+	},
 })
 
 module.exports = ThreadMessageRow;

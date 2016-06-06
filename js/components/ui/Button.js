@@ -13,43 +13,41 @@ import {
 
 class Button extends Component
 {
-
-	nonClickableButton()
+	render()
 	{
-		const buttonState = this.props.disabledButton ? { backgroundColor: '#aaa' } : '';
-		const textColor = this.props.disabledButton ? { color: '#333' } : '';
+		let { buttonBg } = this.props;
 
-		let { label } = this.props;
-		
-		return (
-			<View style={[styles.button, buttonState]}>
-				<Text style={[styles.label, textColor]}>
-					{label}
-				</Text>
-			</View>
-		)
-	}
+		let buttonStyles = {
+			backgroundColor: 'white'
+		}
 
-	clickableButton()
-	{
+		let labelStyles = {
+			color: '#d32f2f',
+		}
+
+		if( buttonBg )
+		{
+			buttonStyles = {
+				backgroundColor: buttonBg,
+			}
+
+			labelStyles = {
+				color: 'white'
+			}
+		}
+
 		return (
 			<TouchableHighlight
 				onPress={this.props.onPress}
 				underlayColor={'#ddd'}
 			>
-				{ this.nonClickableButton() }
+				<View style={[styles.button, buttonStyles]}>
+					<Text style={[styles.label, labelStyles]}>
+						{this.props.label}
+					</Text>
+				</View>
 			</TouchableHighlight>	
 		)
-	}
-
-	render()
-	{
-		if( this.props.disabledButton )
-		{
-			return this.nonClickableButton();
-		}
-
-		return this.clickableButton();
 	}
 }
 
@@ -62,7 +60,6 @@ const styles = StyleSheet.create({
 
 	label: {
 		fontSize: 10,
-		color: '#d32f2f',
 		textAlign: 'center'
 	}
 })

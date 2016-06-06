@@ -55,6 +55,7 @@ class Threads extends Component
 				dataSource={this.state.threads}
 				renderRow={this.renderRow.bind(this)}
 				renderSectionHeader={this.renderSectionHeader}
+				enableEmptySections={true}
 				style={styles.listView} />
 		)
 	}

@@ -37,7 +37,7 @@ class AIMCongress extends Component
 			>
 				<Scene key="root">
 					<Scene key="login" component={Login} title="" type="refresh" initial={true} />
-					<Scene key="home" component={Home} title="AIM Congress" type="replace" initial={false} />
+					<Scene key="home" component={Home} title="App" type="replace" initial={false} />
 					<Scene key="threads" component={Threads} title="Threads" />
 					<Scene key="thread" component={Thread} title="Chat" />
 					<Scene key="schedules" component={Schedules} title="Schedules" />

@@ -35,7 +35,7 @@ class AgendaRow extends Component
 							<Text style={[GS.themeFont, GS.subTitle]}>
 								{this.props.agenda.title}
 							</Text>
-							<Text style={[GS.themeFontLight, GS.body]} numberOfLines={3}>
+							<Text style={[GS.themeFontLight, GS.body, styles.body]} numberOfLines={3}>
 								{this.props.agenda.description}
 							</Text>
 						</View>
@@ -91,7 +91,10 @@ const styles = StyleSheet.create({
 
 	right: {
 		flex: 0.9,
-		alignItems: 'flex-start',
+	},
+
+	body: {
+		flex: 1,
 	}
 });
 

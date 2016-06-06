@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 import Button from './ui/Button';
+import { themeColor } from '../env';
 
 class ChatForm extends Component
 {
@@ -54,7 +55,7 @@ class ChatForm extends Component
 					</ScrollView>
 				</View>
 				<View style={styles.button}>
-					<Button label={'Send'} onPress={this.onSubmit.bind(this)} />
+					<Button label={'Send'} onPress={this.onSubmit.bind(this)} buttonBg={themeColor} />
 				</View>
 			</View>
 		)
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
 
 	textarea: {
 		height: 40,
-		padding: 3,
+		padding: 5,
 		color: '#333',
 		borderWidth: 1,
 		borderRadius: 2,

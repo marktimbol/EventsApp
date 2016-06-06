@@ -46,7 +46,8 @@ class Speakers extends Component
 				style={styles.listView}
 				dataSource={this.state.speakers}
 				renderRow={this.renderRow.bind(this)}
-				renderSectionHeader={this.renderSectionHeader} />
+				renderSectionHeader={this.renderSectionHeader}
+				enableEmptySections={true} />
 		)
 	}
 
