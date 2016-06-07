@@ -29,7 +29,7 @@ const GlobalStyles = StyleSheet.create({
 
 	subTitle: {
 		fontSize: 11,
-		color: '#555',
+		color: '#333',
 		marginTop: 0,
 	},
 

@@ -110,9 +110,9 @@ const styles = StyleSheet.create({
 		borderRadius: 50,
 		marginBottom: 20,
 		borderColor: '#ddd',
-		borderWidth: StyleSheet.hairlineWidth,
 		alignItems: 'center',
 		justifyContent: 'center',
+		borderWidth: StyleSheet.hairlineWidth,
 	},
 
 	avatar: {
@@ -186,5 +186,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Speaker);
-
-

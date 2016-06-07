@@ -12,6 +12,7 @@ import {
 import Schedules from './schedules/Schedules';
 import Speakers from './speakers/Speakers';
 import Threads from './threads/Threads';
+import MoreTabs from './MoreTabs';
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import { themeColor } from '../env'
@@ -83,9 +84,7 @@ class Home extends Component
 					selected={this.state.selectedTab === 'more'}
 					onPress={() => this.setState({ selectedTab: 'more' })}
 				>
-					<View>
-						<Text>More</Text>
-					</View>
+					<MoreTabs />
 				</Icon.TabBarItemIOS>
 			</TabBarIOS>
 		)

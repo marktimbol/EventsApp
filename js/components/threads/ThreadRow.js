@@ -37,7 +37,7 @@ class ThreadRow extends Component
 
 					<View style={styles.right}>
 						<View>
-							<Text style={[GS.themeFont, styles.subtitle]}>
+							<Text style={[GS.themeFont, GS.subTitle]}>
 								{ name }
 							</Text>
 							<Text style={[GS.themeFont, GS.body]} numberOfLines={2}>

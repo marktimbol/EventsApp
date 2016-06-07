@@ -20,6 +20,8 @@ import { connect } from 'react-redux';
 import * as userActionCreators from '../actions/user';
 import * as scheduleActionCreators from '../actions/schedules';
 import * as speakerActionCreators from '../actions/speakers';
+import * as exhibitorActionCreators from '../actions/exhibitors';
+import * as mediasActionCreators from '../actions/medias';
 
 import { Actions } from 'react-native-router-flux';
 import Schedules from './schedules/Schedules';
@@ -31,6 +33,8 @@ class Login extends Component
 	{
 		this.props.fetchSchedules();
 		this.props.fetchSpeakers();
+		this.props.fetchExhibitors();
+		this.props.fetchMediaPartners();
 	}
 
 	render()
@@ -40,7 +44,9 @@ class Login extends Component
 		return (
 			<View style={styles.container}>
 				<View>
-					<View style={styles.logo}></View>
+					<View style={styles.logoContainer}>
+						<Image source={require('../../images/logo.png')} style={styles.logo} resizeMode={'contain'} />
+					</View>
 				</View>
 
 				{ authenticating ?
@@ -82,7 +88,14 @@ const mapStateToProps = (state) => {
 	}
 }
 const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators(Object.assign({}, userActionCreators, speakerActionCreators, scheduleActionCreators), dispatch);
+	return bindActionCreators(
+		Object.assign({}, 
+			userActionCreators, 
+			speakerActionCreators, 
+			scheduleActionCreators, 
+			exhibitorActionCreators,
+			mediasActionCreators
+		), dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
@@ -95,11 +108,19 @@ const styles = StyleSheet.create({
 		backgroundColor: '#d32f2f',
 	},
 
-	logo: {
+	logoContainer: {
 		width: 100,
 		height: 100,
 		borderRadius: 50,
-		backgroundColor: 'white'
+		backgroundColor: 'white',
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+
+	logo: {
+		width: 80,
+		height: 80,
+		borderRadius: 40
 	},
 
 	loading: {

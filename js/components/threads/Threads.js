@@ -50,6 +50,14 @@ class Threads extends Component
 
 	render()
 	{
+		if( this.props.threads.length <= 0 )
+		{
+			return (
+				<View style={styles.center}>
+					<Text>No messages</Text>
+				</View>
+			)
+		}
 		return (
 			<ListView
 				dataSource={this.state.threads}
@@ -111,5 +119,11 @@ const styles = StyleSheet.create({
 	listView: {
 		backgroundColor: 'white',
 	},	
+
+	center: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+	}
 });
 
