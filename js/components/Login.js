@@ -12,6 +12,7 @@ import {
 	TouchableHighlight,
 	ActivityIndicatorIOS,
 	StyleSheet,
+	NetInfo,
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
@@ -29,12 +30,26 @@ import LoginForm from './LoginForm';
 
 class Login extends Component
 {
+	constructor(props)
+	{
+		super(props);
+		this.state = {
+			connection: ''
+		}
+	}
+
 	componentDidMount()
 	{
-		this.props.fetchSchedules();
-		this.props.fetchSpeakers();
-		this.props.fetchExhibitors();
-		this.props.fetchMediaPartners();
+		NetInfo.fetch().done((connection) => {
+			this.setState({
+				connection
+			})
+			this.props.fetchSchedules();
+			this.props.fetchSpeakers();
+			this.props.fetchExhibitors();
+			this.props.fetchMediaPartners();
+		});
+
 	}
 
 	render()
@@ -42,29 +57,42 @@ class Login extends Component
 		let { authenticating, authenticated, user } = this.props;
 
 		return (
-			<View style={styles.container}>
-				<View>
-					<View style={styles.logoContainer}>
-						<Image source={require('../../images/logo.png')} style={styles.logo} resizeMode={'contain'} />
-					</View>
-				</View>
-
-				{ authenticating ?
-					<View style={styles.loading}>
-						<ActivityIndicatorIOS animating={true} size={'large'} color={'white'} />
-					</View>
-					:
+			<View style={styles.wrapper}>
+				<View style={styles.container}>
 					<View>
-						<LoginForm onSubmit={(email, password) => this.onSubmit(email, password)} />
-						<View>
-							<Text style={styles.message}>{this.props.message}</Text>
+						<View style={styles.logoContainer}>
+							<Image source={require('../../images/logo.png')} style={styles.logo} resizeMode={'contain'} />
 						</View>
 					</View>
-				}
-				<View style={styles.actions}>
-					<Text style={styles.link}>Create new AIMCongress Account</Text>
-					<Text style={styles.link}>Forgot password?</Text>
+
+					{ authenticating ?
+						<View style={styles.loading}>
+							<ActivityIndicatorIOS animating={true} size={'large'} color={'white'} />
+						</View>
+						:
+						<View>
+							<LoginForm onSubmit={(email, password) => this.onSubmit(email, password)} />
+							<View>
+								<Text style={styles.message}>{this.props.message}</Text>
+							</View>
+						</View>
+					}
+					<View style={styles.actions}>
+						<Text style={styles.link}>Create new AIMCongress Account</Text>
+						<Text style={styles.link}>Forgot password?</Text>
+					</View>
 				</View>
+				{
+					this.state.connection == 'none' ? 
+						<View style={styles.noConnection}>
+							<Text style={styles.noConnectionText}>No internet connection</Text> 
+							<TouchableHighlight underlayColor={'white'} onPress={this.retryConnection}>
+								<Text style={styles.retry}>Retry</Text>
+							</TouchableHighlight>
+						</View>
+						: 
+						<View></View>
+				}
 			</View>
 		)
 	}
@@ -101,6 +129,10 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 const styles = StyleSheet.create({
+	wrapper: {
+		flex: 1
+	},
+
 	container: {
 		flex: 1,
 		alignItems: 'center',
@@ -144,6 +176,28 @@ const styles = StyleSheet.create({
 		fontSize: 12,
 		textAlign: 'center',
 		marginTop: 10,	
+	},
+
+	noConnection: {
+		backgroundColor: '#ff9800',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+
+	noConnectionText: {
+		fontSize: 12,
+		color: 'white',
+		textAlign: 'center',
+		padding: 10,
+	},
+
+	retry: {
+		fontSize: 10,
+		borderBottomWidth: 1,
+		padding: 2,
+		borderBottomColor: 'white',
 	}
+
 })
 
