@@ -1,13 +1,15 @@
 import React, {
-	Component
+	Component,
 } from 'react';
 
 import {
 	View,
 	Text,
 	TextInput,
-	StyleSheet
+	StyleSheet,
 } from 'react-native';
+
+import { create } from 'react-native-platform-stylesheet';
 
 import Button from './ui/Button';
 
@@ -20,7 +22,6 @@ class LoginForm extends Component
 			email: '',
 			password: '',
 		}
-
 		this.onSubmit = this.onSubmit.bind(this);
 	}
 
@@ -53,7 +54,9 @@ class LoginForm extends Component
 				<View style={styles.button}>
 					<Button 
 						label={'Login'} 
-						onPress={this.onSubmit} />
+						onPress={this.onSubmit}
+						enabled={true}
+						hasCustomBg={'white'} />
 				</View>
 			</View>	
 		)
@@ -68,7 +71,7 @@ class LoginForm extends Component
 	}
 }
 
-const styles = StyleSheet.create({
+const styles = create({
 	form: {
 		marginTop: 30,
 	},
@@ -90,7 +93,12 @@ const styles = StyleSheet.create({
 		color: 'white',
 		borderWidth: 1,
 		borderColor: '#ddd',
-		borderRadius: 2,
+		borderRadius: 2,		
+		android: {
+			padding: 0,
+			borderWidth: 1,
+			borderColor: 'white'
+		}
 	},
 
 	button: {

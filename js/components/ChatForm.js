@@ -23,6 +23,7 @@ class ChatForm extends Component
 
 		this.state = {
 			message: '',
+			buttonState: false
 		}
 	}
 
@@ -31,14 +32,25 @@ class ChatForm extends Component
 		e.preventDefault();
 
 		let message = this.state.message;
+
 		this.setState({
-			message: ''
+			message: '',
+			buttonState: false
 		});
+
 		this.props.onStartThread(message);
 	}
 
-	render()
+	handleChangeText(message) 
 	{
+		this.setState({ message })
+		this.state.message === '' ? 
+			this.setState({ buttonState: false }) : 
+			this.setState({ buttonState: true });
+	}
+
+	render()
+	{		
 		return (
 			<View style={styles.form}>
 				<View style={styles.input}>
@@ -50,12 +62,16 @@ class ChatForm extends Component
 							autoCapitalize={'none'}
 							multiline={true}
 							value={this.state.message}
-							onChangeText={(message) => this.setState({ message })}
+							onChangeText={this.handleChangeText.bind(this) }
 							style={styles.textarea} />
 					</ScrollView>
 				</View>
-				<View style={styles.button}>
-					<Button label={'Send'} onPress={this.onSubmit.bind(this)} buttonBg={themeColor} />
+				<View style={styles.buttonContainer}>
+					<Button 
+						label={'Send'} 
+						onPress={this.onSubmit.bind(this)} 
+						customBg={themeColor} 
+						enabled={this.state.buttonState} />
 				</View>
 			</View>
 		)
@@ -89,10 +105,10 @@ const styles = StyleSheet.create({
 		borderColor: '#ddd',
 	},
 
-	button: {
+	buttonContainer: {
 		flex: 0.1,
 		marginRight: 5,
-	}
+	},
 });
 
 module.exports = ChatForm;

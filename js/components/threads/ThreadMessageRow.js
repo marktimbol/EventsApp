@@ -23,18 +23,16 @@ class ThreadMessageRow extends Component
 		if( this.props.alignRight ) {
 			return this.rightAlignMessage();
 		}
-		
 		return this.leftAlignMessage();
 	}
 
 	rightAlignMessage()
 	{
 		return (
-			<View style={[styles.messageContainer]}>
+			<View style={[styles.row, styles.rowWithPadding]}>
 				<View style={[styles.right]}>
 					{ this.renderRightAlignMessage() }
 				</View>
-
 				<View style={styles.left}>
 					{ this.renderAvatar() }
 				</View>
@@ -42,16 +40,18 @@ class ThreadMessageRow extends Component
 		)
 	}
 
-	leftAlignMessage()
+	renderRightAlignMessage()
 	{
+		let { message } = this.props;
+		
 		return (
-			<View style={styles.messageContainer}>
-				<View style={styles.left}>
-					{ this.renderAvatar() }
-				</View>
-
-				<View style={styles.right}>
-					{ this.renderLeftAlignMessage() }
+			<View style={styles.row}>
+				<View style={styles.spacer}></View>
+				<View style={[styles.message, styles.pushRight]}>
+					<Text style={[GS.body, styles.body, styles.senderBg]}>
+						{ message.message }
+					</Text>
+					<TimeAgo style={styles.time} time={message.created_at} />
 				</View>
 			</View>
 		)
@@ -64,12 +64,27 @@ class ThreadMessageRow extends Component
 		)	
 	}
 
+	leftAlignMessage()
+	{
+		return (
+			<View style={[styles.row, styles.rowWithPadding]}>
+				<View style={styles.left}>
+					{ this.renderAvatar() }
+				</View>
+
+				<View style={styles.right}>
+					{ this.renderLeftAlignMessage() }
+				</View>
+			</View>
+		)
+	}
+
 	renderLeftAlignMessage()
 	{
 		let { message } = this.props;
 
 		return (
-			<View style={styles.bodyContainer}>
+			<View style={styles.row}>
 				<View style={[styles.message, styles.pushLeft]}>
 					<Text style={[GS.body, styles.body]}>
 						{message.message}
@@ -80,29 +95,15 @@ class ThreadMessageRow extends Component
 			</View>
 		)
 	}
-
-	renderRightAlignMessage()
-	{
-		let { message } = this.props;
-		
-		return (
-			<View style={styles.bodyContainer}>
-				<View style={styles.spacer}></View>
-				<View style={[styles.message, styles.pushRight]}>
-					<Text style={[GS.body, styles.body, styles.senderBg]}>
-						{message.message}
-					</Text>
-					<TimeAgo style={styles.time} time={message.created_at} />
-				</View>
-			</View>
-		)
-	}
 }
 
 const styles = StyleSheet.create({
-	messageContainer: {
-		padding: 10,
+	row: {
 		flexDirection: 'row',
+	},
+
+	rowWithPadding: {
+		padding: 10,
 	},
 
 	message: {
@@ -117,16 +118,11 @@ const styles = StyleSheet.create({
 		flex: 0.9,
 	},
 
-	bodyContainer: {
-		flex: 1,
-		flexDirection: 'row',
-	},
-
 	body: {
 		color: '#333',
+		borderRadius: 2,
 		paddingVertical: 5,
 		paddingHorizontal: 10,
-		borderRadius: 2,
 		backgroundColor: '#E9E9E9',
 	},
 

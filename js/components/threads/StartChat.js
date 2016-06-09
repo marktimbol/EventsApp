@@ -18,7 +18,7 @@ import ThreadRow from './ThreadRow';
 import ChatForm from '../ChatForm';
 
 import GS from '../GlobalStyles';
-const domain = 'http://mecsc.dev';
+import { apiUrl } from '../../env';
 
 class StartChat extends Component
 {
@@ -59,7 +59,7 @@ class StartChat extends Component
 	fetchThread()
 	{	
 		let { thread, currentUser } = this.props;
-		const url = `${domain}/api/user/threads/${thread.id}/?api_token=${currentUser.api_token}`;
+		const url = `${apiUrl}/user/threads/${thread.id}/?api_token=${currentUser.api_token}`;
 
 		fetch(url)
 			.then((response) => response.json())
@@ -133,7 +133,7 @@ class StartChat extends Component
 
 	startThread(message)
 	{
-		const url = `${domain}/api/threads`;
+		const url = `${apiUrl}/threads`;
 
 		fetch(url, {
 			method: 'POST',
@@ -162,7 +162,7 @@ class StartChat extends Component
 
 	replyTo(message)
 	{
-		const url = `${domain}/api/threads/${this.props.thread.id}/replies`;
+		const url = `${apiUrl}/threads/${this.props.thread.id}/replies`;
 
 		fetch(url, {
 			method: 'POST',

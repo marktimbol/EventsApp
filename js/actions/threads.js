@@ -10,7 +10,7 @@ export const fetchUserThreads = (user) => {
 			.then((threads) => {
 				dispatch(status.hideLoading());
 				dispatch(userThreadsWasFetched(threads));
-			});
+			})
 	}
 }
 

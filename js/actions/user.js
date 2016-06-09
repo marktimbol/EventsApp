@@ -5,6 +5,7 @@ import { Actions } from 'react-native-router-flux';
 
 export const authenticateUser = (email, password) => {
 	return (dispatch) => {
+		console.log(dispatch);
 		dispatch(status.authenticating());
 		fetch(`${apiUrl}/public/login`, {
 			method: 'POST',
@@ -18,14 +19,15 @@ export const authenticateUser = (email, password) => {
 		})
 		.then((response) => response.json())
 		.then((user) => {
-			if( user.api_token === '' )
-			{
+			console.log(user);
+			if( user.api_token === '' ) {
 				dispatch(status.invalidCredentials());
 				return Actions.login({ message: 'Invalid email / password'});	
 			}
 			dispatch(status.authenticated());
 			dispatch(userWasAuthenticated(user));
 			dispatch(fetchUserThreads(user));
+
 			return Actions.home();			
 		})
 	}

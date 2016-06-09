@@ -1,12 +1,12 @@
-const domain = 'http://mecsc.dev';
+import { apiUrl } from '../env';
 
 const fetchSpeakers = () => {
 	return (dispatch) => {
-		fetch(`${domain}/api/public/speakers`)
+		fetch(`${apiUrl}/public/speakers`)
 			.then((response) => response.json())
 			.then((speakers) => {
 				dispatch(speakersWasFetched(speakers));
-			});
+			})
 	}
 }
 

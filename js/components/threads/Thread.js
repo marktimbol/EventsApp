@@ -27,8 +27,6 @@ class Thread extends Component
 {
 	componentDidMount()
 	{
-		console.log('Thread props', this.props);
-
 		this.listenToIncomingMessage();
 		this.scrollToBottom();
 	}
@@ -110,16 +108,12 @@ class Thread extends Component
 
 	startThread(message)
 	{
-		console.log('startThread()');
-
 		let { currentUser, otherUser } = this.props;
 		this.props.startThread(currentUser, otherUser, message);
 	}
 
 	replyTo(message)
 	{
-		console.log('replyTo()');
-
 		let { thread, currentUser, otherUser } = this.props;
 		// reply to the other user on this thread id 
 		// with this message and i am current user 

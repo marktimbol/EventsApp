@@ -13,6 +13,7 @@ import {
 	ActivityIndicatorIOS,
 	StyleSheet,
 	NetInfo,
+	ProgressBarAndroid,
 } from 'react-native';
 
 import { bindActionCreators } from 'redux';
@@ -27,6 +28,7 @@ import * as mediasActionCreators from '../actions/medias';
 import { Actions } from 'react-native-router-flux';
 import Schedules from './schedules/Schedules';
 import LoginForm from './LoginForm';
+import Loading from './Loading';
 
 class Login extends Component
 {
@@ -34,22 +36,16 @@ class Login extends Component
 	{
 		super(props);
 		this.state = {
-			connection: ''
+			connection: 'wifi'
 		}
 	}
 
 	componentDidMount()
-	{
-		NetInfo.fetch().done((connection) => {
-			this.setState({
-				connection
-			})
-			this.props.fetchSchedules();
-			this.props.fetchSpeakers();
-			this.props.fetchExhibitors();
-			this.props.fetchMediaPartners();
-		});
-
+	{		
+		this.props.fetchSchedules();
+		this.props.fetchSpeakers();
+		this.props.fetchExhibitors();
+		this.props.fetchMediaPartners();
 	}
 
 	render()
@@ -64,10 +60,9 @@ class Login extends Component
 							<Image source={require('../../images/logo.png')} style={styles.logo} resizeMode={'contain'} />
 						</View>
 					</View>
-
 					{ authenticating ?
 						<View style={styles.loading}>
-							<ActivityIndicatorIOS animating={true} size={'large'} color={'white'} />
+							<Loading />
 						</View>
 						:
 						<View>
@@ -86,12 +81,7 @@ class Login extends Component
 					this.state.connection == 'none' ? 
 						<View style={styles.noConnection}>
 							<Text style={styles.noConnectionText}>No internet connection</Text> 
-							<TouchableHighlight underlayColor={'white'} onPress={this.retryConnection}>
-								<Text style={styles.retry}>Retry</Text>
-							</TouchableHighlight>
-						</View>
-						: 
-						<View></View>
+						</View> : <View></View>
 				}
 			</View>
 		)
@@ -102,6 +92,14 @@ class Login extends Component
 		this.setState({
 			formWasSubmitted: true,
 		});
+
+		if( email === '' ) {
+			return Actions.login({ message: 'Please enter your email'});	
+		}
+
+		if( password === '' ) {
+			return Actions.login({ message: 'Please enter your password'});	
+		}
 
 		this.props.authenticateUser(email, password);
 	}
@@ -116,14 +114,7 @@ const mapStateToProps = (state) => {
 	}
 }
 const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators(
-		Object.assign({}, 
-			userActionCreators, 
-			speakerActionCreators, 
-			scheduleActionCreators, 
-			exhibitorActionCreators,
-			mediasActionCreators
-		), dispatch);
+	return bindActionCreators(Object.assign({}, userActionCreators, speakerActionCreators, scheduleActionCreators, exhibitorActionCreators, mediasActionCreators), dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
@@ -191,13 +182,6 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		padding: 10,
 	},
-
-	retry: {
-		fontSize: 10,
-		borderBottomWidth: 1,
-		padding: 2,
-		borderBottomColor: 'white',
-	}
 
 })
 

@@ -11,42 +11,55 @@ import {
 	StyleSheet
 } from 'react-native';
 
+import { themeColor } from '../../env';
+
 class Button extends Component
 {
 	render()
 	{
-		let { buttonBg } = this.props;
+		let { enabled, hasCustomBg } = this.props;
+		let buttonStyles = { backgroundColor: '#888' }
+		let labelStyles = { color: 'white' }
 
-		let buttonStyles = {
-			backgroundColor: 'white'
+		if( enabled ) {
+			buttonStyles = { backgroundColor: themeColor }
+			labelStyles = { color: 'white' }
+
+			if( hasCustomBg ) {
+				buttonStyles = { backgroundColor: hasCustomBg }
+				labelStyles = { color: themeColor }	
+			}
 		}
 
-		let labelStyles = {
-			color: '#d32f2f',
-		}
-
-		if( buttonBg )
-		{
-			buttonStyles = {
-				backgroundColor: buttonBg,
-			}
-
-			labelStyles = {
-				color: 'white'
-			}
+		if( enabled ) {
+			return (
+				<TouchableHighlight
+					onPress={this.props.onPress}
+					underlayColor={'#ddd'}
+				>
+					{ this.renderButtonText(buttonStyles, labelStyles) }
+				</TouchableHighlight>	
+			)
 		}
 
 		return (
-			<TouchableHighlight
-				onPress={this.props.onPress}
-				underlayColor={'#ddd'}
-			>
-				<View style={[styles.button, buttonStyles]}>
-					<Text style={[styles.label, labelStyles]}>
-						{this.props.label}
-					</Text>
-				</View>
-			</TouchableHighlight>	
+			<View>
+				{ this.renderButtonText(buttonStyles, labelStyles) }
+			</View>
+		)
+
+	}
+
+	renderButtonText(buttonStyles, labelStyles)
+	{
+		let { label } = this.props;
+
+		return (
+			<View style={[styles.button, buttonStyles]}>
+				<Text style={[styles.label, labelStyles]}>
+					{label}
+				</Text>
+			</View>
 		)
 	}
 }
@@ -55,7 +68,9 @@ const styles = StyleSheet.create({
 	button: {
 		padding: 5,
 		borderRadius: 2,
+		borderColor: 'white',
 		backgroundColor: 'white',
+		borderWidth: StyleSheet.hairlineWidth,
 	},
 
 	label: {
