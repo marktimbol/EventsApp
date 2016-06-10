@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
 	link: {
 		margin: 0,
 		padding: 10,
+		paddingLeft: 35,
 	},
 
 	label: {

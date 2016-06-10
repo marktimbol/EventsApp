@@ -46,7 +46,6 @@ class Speakers extends Component
 				style={styles.listView}
 				dataSource={this.state.speakers}
 				renderRow={this.renderRow.bind(this)}
-				renderSectionHeader={this.renderSectionHeader}
 				enableEmptySections={true} />
 		)
 	}
@@ -55,13 +54,6 @@ class Speakers extends Component
 	{
 		return (
 			<SpeakerRow speaker={speaker} currentUser={this.props.currentUser} />
-		)
-	}
-
-	renderSectionHeader()
-	{
-		return (
-			<Text style={GS.sectionHeader}>Speakers</Text>
 		)
 	}
 }

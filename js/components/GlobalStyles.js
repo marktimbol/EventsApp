@@ -63,7 +63,7 @@ const GlobalStyles = StyleSheet.create({
 	},
 
 	sectionHeader: {
-		fontSize: 10,
+		fontSize: 14,
 		color: 'white',
 		padding: 5,
 		backgroundColor: '#c62828'

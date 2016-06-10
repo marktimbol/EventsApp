@@ -12,8 +12,18 @@ class Loading extends Component
 {
 	render()
 	{
+		let type = 'Normal';
+		let color = 'white';
+		if( this.props.type ) {
+			type = this.props.type;
+		}
+		if( this.props.color ) {
+			color = this.props.color;
+		}
+
+
 		return (
-			<ProgressBarAndroid />
+			<ProgressBarAndroid styleAttr={type} color={color} />
 		)
 	}
 }

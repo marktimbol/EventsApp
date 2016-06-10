@@ -20,8 +20,9 @@ import * as userActionCreators from '../../actions/user';
 import Pusher from 'pusher-js/react-native';
 import ThreadMessageRow from './ThreadMessageRow';
 import ChatForm from '../ChatForm';
-
+import Loading from '../Loading';
 import GS from '../GlobalStyles';
+import { themeColor } from '../../env';
 
 class Thread extends Component
 {
@@ -70,7 +71,7 @@ class Thread extends Component
 					style={styles.scrollView}
 				>
 					{messages}
-					{ isSending ? this.loading() : <View></View> }
+					{ isSending ? <Loading type={'Small'} color={themeColor} /> : <View></View> }
 				</ScrollView>
 				<View style={styles.form}>
 					<ChatForm 

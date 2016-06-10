@@ -62,7 +62,6 @@ class Threads extends Component
 			<ListView
 				dataSource={this.state.threads}
 				renderRow={this.renderRow.bind(this)}
-				renderSectionHeader={this.renderSectionHeader}
 				enableEmptySections={true}
 				style={styles.listView} />
 		)
@@ -75,13 +74,6 @@ class Threads extends Component
 				thread={thread} 
 				currentUser={this.props.currentUser}
 				onPress={() => this.showThread(thread)} />
-		)
-	}
-
-	renderSectionHeader()
-	{
-		return (
-			<Text style={GS.sectionHeader}>Messages</Text>
 		)
 	}
 

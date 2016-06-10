@@ -121,9 +121,8 @@ const styles = StyleSheet.create({
 	body: {
 		color: '#333',
 		borderRadius: 2,
-		paddingVertical: 5,
 		paddingHorizontal: 10,
-		backgroundColor: '#E9E9E9',
+		// backgroundColor: '#E9E9E9',
 	},
 
 	spacer: {
@@ -137,9 +136,9 @@ const styles = StyleSheet.create({
 	},
 
 	senderBg: {
-		color: 'white',
-		backgroundColor: '#f44336',
-		textAlign: 'right'
+		// color: 'white',
+		// backgroundColor: '#f44336',
+		textAlign: 'right',
 	},
 
 	time: {

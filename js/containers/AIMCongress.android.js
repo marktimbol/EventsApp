@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
 	},
 
 	drawer__content: {
-		marginVertical: 20
+		marginVertical: 20,
 	},
 
 	logo: {

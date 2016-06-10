@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
 	},
 
 	input: {
-		flex: 0.9,
+		flex: 0.8,
 	},
 
 	textarea: {
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
 	},
 
 	buttonContainer: {
-		flex: 0.1,
+		flex: 0.2,
 		marginRight: 5,
 	},
 });

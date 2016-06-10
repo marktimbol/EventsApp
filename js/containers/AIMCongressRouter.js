@@ -35,9 +35,9 @@ class AIMCongressRouter extends Component
 				titleStyle={styles.title}
 			>
 				<Scene key="root">
-					<Scene key="login" component={Login} title="" type="refresh" initial={true} />
+					<Scene key="login" component={Login} title="" initial={true} />
 					<Scene key="home" component={Home} title="Conference App" type="replace" />
-					<Scene key="threads" component={Threads} title="Threads" />
+					<Scene key="threads" component={Threads} title="Messages" />
 					<Scene key="thread" component={Thread} title="Chat" />
 					<Scene key="schedules" component={Schedules} title="Schedules" />
 					<Scene key="agenda" component={Agenda} title="Agenda" />
