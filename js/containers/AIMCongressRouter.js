@@ -1,18 +1,13 @@
-'use strict';
-
 import React, {
-	Component,
+	Component
 } from 'react';
 
 import {
-	View,
 	StyleSheet,
 	Navigator,
 } from 'react-native';
 
-import { connect } from 'react-redux';
 import { Router, Scene } from 'react-native-router-flux';
-
 import Login from '../components/Login';
 import Home from '../components/Home';
 import Threads from '../components/threads/Threads';
@@ -29,9 +24,9 @@ import MediaPartner from '../components/medias/MediaPartner';
 
 import { themeColor } from '../env';
 
-class AIMCongress extends Component
-{	
-	render() 
+class AIMCongressRouter extends Component
+{
+	render()
 	{
 		return (
 			<Router 
@@ -40,8 +35,8 @@ class AIMCongress extends Component
 				titleStyle={styles.title}
 			>
 				<Scene key="root">
-					<Scene key="login" component={Login} title="" type="refresh" initial={true} />
-					<Scene key="home" component={Home} title="Conference App" type="replace" />
+					<Scene key="login" component={Login} title="" type="refresh" initial={false} />
+					<Scene key="home" component={Home} title="Conference App" type="refresh" initial={true} />
 					<Scene key="threads" component={Threads} title="Threads" />
 					<Scene key="thread" component={Thread} title="Chat" />
 					<Scene key="schedules" component={Schedules} title="Schedules" />
@@ -64,20 +59,12 @@ const styles = StyleSheet.create({
 		backgroundColor: themeColor,
 		borderBottomWidth: 0,
 	},
-
 	scene: {
 		paddingTop: 64,
 	},
-
 	title: {
-		color: 'white'
-	}
-});
+		color: 'white',
+	},
+})
 
-const mapStateToProps = (state) => {
-	return {
-		user: state.user
-	}
-}
-
-export default connect(mapStateToProps)(AIMCongress);
+export default AIMCongressRouter;

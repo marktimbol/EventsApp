@@ -32,15 +32,15 @@ class Exhibitor extends Component
 
 				<View style={styles.actions}>
 					<View style={styles.action}>
-						<TouchableHighlight underlayColor={'#c62828'} onPress={() => alert('Other action') }>
-							<Text style={[GS.themeFont, GS.textCenter, styles.actionText]}>
+						<TouchableHighlight style={styles.action__link} underlayColor={'#c62828'} onPress={() => alert('Other action') }>
+							<Text style={[GS.themeFont, GS.textCenter, styles.action__label]}>
 								Other
 							</Text>
 						</TouchableHighlight>
 					</View>
 					<View style={styles.action}>
-						<TouchableHighlight underlayColor={'#c62828'} onPress={() => alert('TODO: visit website') }>
-							<Text style={[GS.themeFont, GS.textCenter, styles.actionText]}>
+						<TouchableHighlight style={styles.action__link} underlayColor={'#c62828'} onPress={() => alert('TODO: visit website') }>
+							<Text style={[GS.themeFont, GS.textCenter, styles.action__label]}>
 								Visit Website
 							</Text>
 						</TouchableHighlight>
@@ -86,17 +86,18 @@ const styles = StyleSheet.create({
 		width: 90,
 		height: 90,
 		borderRadius: 45,
-		backgroundColor: 'white'
+		// backgroundColor: 'white'
 	},
 
 	name: {
 		color: 'white',
 		textAlign: 'center',
+		fontSize: 20,
 		marginBottom: 30,
 	},
 
 	country: {
-		fontSize: 10,
+		fontSize: 16,
 		color: 'white',
 		textAlign: 'center'
 	},
@@ -113,14 +114,17 @@ const styles = StyleSheet.create({
 		flex: 0.6,
 	},
 
-	actionText: {
-		color: 'white',
-		fontSize: 10,
+	action__link: {
 		padding: 10,
 	},
 
+	action__label: {
+		color: 'white',
+		fontSize: 12,
+	},
+
 	about: {
-		padding: 10,
+		padding: 20,
 	},
 
 	title: {

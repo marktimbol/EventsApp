@@ -35,7 +35,7 @@ class AgendaRow extends Component
 							<Text style={[GS.themeFont, GS.subTitle]}>
 								{this.props.agenda.title}
 							</Text>
-							<Text style={[GS.themeFontLight, GS.body, styles.body]} numberOfLines={3}>
+							<Text style={[GS.themeFontLight, GS.body, styles.body]} numberOfLines={2}>
 								{this.props.agenda.description}
 							</Text>
 						</View>
@@ -53,19 +53,20 @@ const styles = StyleSheet.create({
 		alignItems: 'flex-start',
 		borderColor: '#ddd',
 		flexDirection: 'row',
+		marginBottom: 20,
 	},
 
 	info: {
 		borderWidth: 1,
 		borderColor: '#ddd',
-		padding: 5,
+		padding: 10,
 		marginRight: 15,
 		marginTop: 5,
 		borderRadius: 2,
 	},
 
 	pageTitle: {
-		marginVertical: 2,
+		marginBottom: 5,
 	},
 
 	left: {
@@ -76,17 +77,17 @@ const styles = StyleSheet.create({
 	redCircle: {
 		width: 10,
 		height: 10,
-		top: 5,
+		top: 8,
 		borderRadius: 5,
 		backgroundColor: '#d32f2f',
 	},
 
 	line: {
-		flex: 1,
-		width: 1,
-		height: 100,
-		marginTop: 5,
-		backgroundColor: '#ddd',
+		// flex: 1,
+		// width: 1,
+		// height: 140,
+		// marginTop: 20,
+		// backgroundColor: '#ddd',
 	},
 
 	right: {

@@ -29,7 +29,7 @@ class AgendaSpeakers extends Component
 		
 		return (
 			<View>
-				<Text style={[GS.themeFont, GS.pageTitle, styles.row]}>Speakers</Text>
+				<Text style={[GS.themeFont, GS.pageTitle, styles.row, styles.pageTitle]}>Speakers</Text>
 				<View>
 					{ speakers }
 				</View>
@@ -40,8 +40,8 @@ class AgendaSpeakers extends Component
 
 const styles = StyleSheet.create({
 	row: {
-		padding: 10,
-	}
+		marginHorizontal: 20,
+	},
 })
 
 module.exports = AgendaSpeakers;

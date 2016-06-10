@@ -70,38 +70,22 @@ const styles = StyleSheet.create({
 	},
 
 	avatar: {
-		width: 50,
-		height: 50,
-		borderRadius: 25
+		width: 60,
+		height: 60,
+		borderRadius: 30
 	},
 
 	speaker__info: {
-		flex: 0.8
+		flex: 0.8,
+		marginLeft: 10,
 	},
 
 	name: {
 		color: '#333',
-		fontSize: 11,
+		fontSize: 14,
 		marginBottom: 3,
 	},
 
-	roles: {
-		flexDirection: 'row',
-		marginTop: 10,
-	},
-
-	role: {
-		fontSize: 7,
-		color: 'white',
-		paddingTop: 3,
-		paddingBottom: 3,
-		paddingLeft: 5,
-		paddingRight: 5,
-		lineHeight: 0,
-		borderRadius: 2,
-		marginRight: 5,
-		backgroundColor: '#03a9f4',
-	},
 })
 
 module.exports = AgendaSpeakerRow;

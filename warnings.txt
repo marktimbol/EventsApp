@@ -1,0 +1,1 @@
+npm WARN react-native-platform-stylesheet@0.0.5 requires a peer of react-native@^0.24.1 but none was installed.

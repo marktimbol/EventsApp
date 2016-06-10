@@ -70,13 +70,17 @@ const styles = StyleSheet.create({
 	},
 
 	avatar: {
-		width: 50,
-		height: 50,
-		borderRadius: 25,
+		width: 60,
+		height: 60,
+		borderRadius: 30,
+	},
+
+	info: {
+		marginLeft: 10,
 	},
 
 	name: {
-		fontSize: 11,
+		fontSize: 16,
 		color: '#333',
 	}	
 })

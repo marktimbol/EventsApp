@@ -12,7 +12,6 @@ import {
 
 import { Provider } from 'react-redux';
 import store from '../store';
-
 import AIMCongress from './AIMCongress';
 
 class App extends Component

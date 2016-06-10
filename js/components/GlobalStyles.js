@@ -22,21 +22,23 @@ const GlobalStyles = StyleSheet.create({
 	},
 
 	pageTitle: {
-		fontSize: 13,
+		fontSize: 18,
 		color: '#d32f2f',
-		marginVertical: 10,
+		marginBottom: 10,
+		// marginVertical: 10,
 	},
 
 	subTitle: {
-		fontSize: 11,
+		fontSize: 16,
 		color: '#333',
 		marginTop: 0,
+		marginBottom: 5,
 	},
 
 	body: {
-		color: '#888',
-		fontSize: 10,
-		lineHeight: 13,
+		color: '#777',
+		fontSize: 14,
+		lineHeight: 24,
 	},
 
 	textMuted: {

@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
 	},
 
 	row: {
-		padding: 10,
+		padding: 20,
 	},
 
 	header: {
@@ -105,14 +105,14 @@ const styles = StyleSheet.create({
 
 	time: {
 		color: 'white',
-		fontSize: 12,
+		fontSize: 14,
 		marginBottom: 10,
 		textAlign: 'center',
 	},
 
 	venue: {
 		color: 'white',
-		fontSize: 12,
+		fontSize: 14,
 		textAlign: 'center',
 	},
 
