@@ -7,36 +7,36 @@ import {
 	Text,
 	Image,
 	StyleSheet,
-	TouchableHighlight
+	TouchableHighlight,
+	Dimensions,
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 import GS from './../GlobalStyles';
+import { themeColor } from '../../env';
+let { height, width } = Dimensions.get('window');
 
 class SpeakerRow extends Component
 {
 	render()
 	{
 		let { speaker } = this.props;
-		
-		return (
-			<View>
-				<TouchableHighlight underlayColor={'#ddd'} onPress={() => this.viewSpeaker(speaker) }>
-					<View style={[styles.speaker, GS.separator]}>
-						<View style={styles.left}>
-							<Image source={require('../../../images/avatar.jpg')} style={styles.avatar} />
-						</View>
+		let divideBy = 2;
+		var itemWidth = {
+			width: width / divideBy - 10
+		}
 
-						<View style={styles.right}>
-							<View style={styles.info}>
-								<Text style={[GS.themeFont, styles.name]}>
-									{speaker.name}
-								</Text>
-								<Text style={[GS.themeFont, GS.body]}>
-									{speaker.designation} at {speaker.company}
-								</Text>
-							</View>
-						</View>
+		return (
+			<View style={[styles.speakerContainer, itemWidth]}>
+				<TouchableHighlight underlayColor={'#ddd'} onPress={() => this.viewSpeaker(speaker) }>
+					<View style={styles.speaker}>
+						<Image source={require('../../../images/avatar.jpg')} style={styles.avatar} />
+						<Text style={[GS.themeFont, styles.name]}>
+							{speaker.name}
+						</Text>
+						<Text style={[GS.themeFont, styles.designation]} numberOfLines={1}>
+							{speaker.designation}
+						</Text>
 					</View>
 				</TouchableHighlight>
 			</View>
@@ -53,20 +53,26 @@ class SpeakerRow extends Component
 }
 
 const styles = StyleSheet.create({
+	speakerContainer: {
+		// flexWrap: 'wrap',
+		marginVertical: 5,
+		marginHorizontal: 5,
+		backgroundColor: 'white',
+		shadowColor: '#333',
+		shadowOpacity: 0.1,
+		shadowRadius: 3,
+		shadowOffset: {
+			width: 0,
+			height: 0,
+		},
+	},	
+
 	speaker: {
-		flex: 1,
+		height: 150,		
 		padding: 10,
 		alignItems: 'center',
 		justifyContent: 'center',
-		flexDirection: 'row',
-	},
-
-	left: {
-		flex: 0.2
-	},
-
-	right: {
-		flex: 0.8
+		flexDirection: 'column'
 	},
 
 	avatar: {
@@ -75,14 +81,17 @@ const styles = StyleSheet.create({
 		borderRadius: 30,
 	},
 
-	info: {
-		marginLeft: 10,
+	name: {
+		fontSize: 14,
+		color: '#333',
+		marginTop: 10,	
+		textAlign: 'center',
 	},
 
-	name: {
-		fontSize: 16,
-		color: '#333',
-	}	
+	designation: {
+		color: '#888',
+		textAlign: 'center',
+	}
 })
 
 export default SpeakerRow;

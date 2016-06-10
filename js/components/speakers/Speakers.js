@@ -43,7 +43,7 @@ class Speakers extends Component
 	{
 		return (
 			<ListView
-				style={styles.listView}
+				contentContainerStyle={styles.listView}
 				dataSource={this.state.speakers}
 				renderRow={this.renderRow.bind(this)}
 				enableEmptySections={true} />
@@ -73,11 +73,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(Speakers);
 
 const styles = StyleSheet.create({
 	listView: {
-		backgroundColor: 'white'
+		flexWrap: 'wrap',
+		flexDirection: 'row',
+		backgroundColor: '#f4f4f4',
 	},
-
-	sectionHeader: {
-		padding: 5,
-	}
 })
 
