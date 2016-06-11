@@ -68,13 +68,16 @@ class AIMCongress extends Component
 				drawerWidth={300}
 				drawerPosition={DrawerLayoutAndroid.positions.left}
 				renderNavigationView={() => navigationView}>
-					<AIMCongressRouter />
+					<AIMCongressRouter openDrawer={() => this.openDrawer()}/>
 			</DrawerLayoutAndroid>
 		)
 	}
 
-	closeDrawer()
-	{
+	openDrawer() {
+		this.refs.drawer.openDrawer()
+	}
+
+	closeDrawer() {
 		this.refs.drawer.closeDrawer();
 	}
 

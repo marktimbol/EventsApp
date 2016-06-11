@@ -5,8 +5,12 @@ import React, {
 import {
 	StyleSheet,
 	Navigator,
+	Text,
+	TouchableHighlight,
+	Platform,
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/Ionicons';
 import { Router, Scene } from 'react-native-router-flux';
 import Login from '../components/Login';
 import Home from '../components/Home';
@@ -35,8 +39,20 @@ class AIMCongressRouter extends Component
 				titleStyle={styles.title}
 			>
 				<Scene key="root">
-					<Scene key="login" component={Login} title="" initial={true} />
-					<Scene key="home" component={Home} title="Conference App" type="replace" />
+					<Scene key="login" component={Login} title="" type="refresh" initial={true} />
+					{ Platform.OS === 'android' ?
+						<Scene key="home" 
+							component={Home} 
+							title="Conference App" 
+							type="replace"
+							leftTitle={this.leftTitle()} 
+							onLeft={() => this.props.openDrawer()} /> 
+							:
+						<Scene key="home" 
+							component={Home} 
+							title="Conference App" 
+							type="replace" />
+					}
 					<Scene key="threads" component={Threads} title="Messages" />
 					<Scene key="thread" component={Thread} title="Chat" />
 					<Scene key="schedules" component={Schedules} title="Schedules" />
@@ -52,6 +68,13 @@ class AIMCongressRouter extends Component
 			</Router>
 		)
 	}
+
+	leftTitle()
+	{
+		return (
+			<Icon name="ios-menu" size={30} color="white" style={styles.menu} />
+		)
+	}
 }
 
 const styles = StyleSheet.create({
@@ -65,6 +88,10 @@ const styles = StyleSheet.create({
 	title: {
 		color: 'white',
 	},
+	menu: {
+		// marginTop: 28,
+		// marginLeft: 25,
+	}
 })
 
 export default AIMCongressRouter;

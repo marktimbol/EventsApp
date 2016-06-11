@@ -9,6 +9,7 @@
     "pusher-js": "^3.1.0",
     "react": "^0.14.8",
     "react-native": "^0.25.1",
+    "react-native-linear-gradient": "^1.5.10",
     "react-native-platform-stylesheet": "0.0.5",
     "react-native-router-flux": "^3.26.5",
     "react-native-scrollable-tab-view": "^0.4.2",

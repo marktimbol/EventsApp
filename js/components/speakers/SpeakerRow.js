@@ -21,7 +21,8 @@ class SpeakerRow extends Component
 	render()
 	{
 		let { speaker } = this.props;
-		let divideBy = 2;
+		let divideBy = width > 400 ? 3 : 2;
+		
 		var itemWidth = {
 			width: width / divideBy - 10
 		}
@@ -34,7 +35,7 @@ class SpeakerRow extends Component
 						<Text style={[GS.themeFont, styles.name]}>
 							{speaker.name}
 						</Text>
-						<Text style={[GS.themeFont, styles.designation]} numberOfLines={1}>
+						<Text style={[GS.themeFont, styles.designation]} numberOfLines={2}>
 							{speaker.designation}
 						</Text>
 					</View>
@@ -89,6 +90,7 @@ const styles = StyleSheet.create({
 	},
 
 	designation: {
+		fontSize: 12,
 		color: '#888',
 		textAlign: 'center',
 	}
