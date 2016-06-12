@@ -13,7 +13,7 @@ import {
 
 import Pusher from 'pusher-js/react-native';
 import TimeAgo from 'react-native-timeago';
-
+import { create } from 'react-native-platform-stylesheet';
 import GS from '../GlobalStyles';
 
 class ThreadMessageRow extends Component
@@ -47,10 +47,12 @@ class ThreadMessageRow extends Component
 		return (
 			<View style={styles.row}>
 				<View style={styles.spacer}></View>
-				<View style={[styles.message, styles.pushRight]}>
-					<Text style={[GS.body, styles.body, styles.senderBg]}>
-						{ message.message }
-					</Text>
+				<View style={[styles.message, styles.messageRight]}>
+					<View style={[styles.bodyBg, styles.senderBg]}>
+						<Text style={[styles.body, styles.senderBgText]}>
+							{ message.message }
+						</Text>
+					</View>
 					<TimeAgo style={styles.time} time={message.created_at} />
 				</View>
 			</View>
@@ -85,10 +87,10 @@ class ThreadMessageRow extends Component
 
 		return (
 			<View style={styles.row}>
-				<View style={[styles.message, styles.pushLeft]}>
-					<Text style={[GS.body, styles.body]}>
-						{message.message}
-					</Text>
+				<View style={[styles.message, styles.messageLeft]}>
+					<View style={[styles.bodyBg]}>
+						<Text style={[GS.body, styles.body]}>{message.message}</Text>
+					</View>
 					<TimeAgo time={message.created_at} style={[styles.time, styles.timeAlignLeft]} />
 				</View>
 				<View style={styles.spacer}></View>
@@ -97,7 +99,7 @@ class ThreadMessageRow extends Component
 	}
 }
 
-const styles = StyleSheet.create({
+const styles = create({
 	row: {
 		flexDirection: 'row',
 	},
@@ -110,6 +112,14 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 
+	messageLeft: {
+		alignItems: 'flex-start',
+	},
+
+	messageRight: {
+		alignItems: 'flex-end'
+	},
+
 	left: {
 		flex: 0.1,
 	},
@@ -118,11 +128,22 @@ const styles = StyleSheet.create({
 		flex: 0.9,
 	},
 
+	bodyBg: {
+		padding: 5,
+		borderRadius: 2,
+		marginHorizontal: 10,
+		backgroundColor: '#E9E9E9',
+	},
+
 	body: {
 		color: '#333',
-		borderRadius: 2,
-		paddingHorizontal: 10,
-		// backgroundColor: '#E9E9E9',
+		fontSize: 12,
+		ios: {
+			lineHeight: 0,
+		},
+		android: {
+			lineHeight: 18,
+		}
 	},
 
 	spacer: {
@@ -136,9 +157,12 @@ const styles = StyleSheet.create({
 	},
 
 	senderBg: {
-		// color: 'white',
-		// backgroundColor: '#f44336',
-		textAlign: 'right',
+		backgroundColor: '#f44336',
+	},
+
+	senderBgText: {
+		textAlign: 'left',
+		color: 'white'
 	},
 
 	time: {
@@ -146,18 +170,11 @@ const styles = StyleSheet.create({
 		color: '#888',
 		textAlign: 'right',
 		marginTop: 2,
+		marginHorizontal: 10,
 	},
 
 	timeAlignLeft: {
 		textAlign: 'left'
-	},
-
-	pushLeft: {
-		marginLeft: 5,
-	},
-
-	pushRight: {
-		marginRight: 10,
 	},
 })
 

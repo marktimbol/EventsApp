@@ -84,7 +84,7 @@ export const replyTo = (otherUserId, thread, message, currentUser) => {
 		.then((data) => {
 			dispatch(status.messageSent());
 			dispatch(updateThread(data));
-			dispatch(fetchUserThreads(currentUser));
+			// dispatch(fetchUserThreads(currentUser));
 		});
 	}
 }

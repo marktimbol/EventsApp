@@ -35,12 +35,17 @@ class Thread extends Component
 
 	listenToIncomingMessage()
 	{
+		let { currentUser } = this.props;
 		let pusher = new Pusher('a892016947101331c193');
 		let channel = pusher.subscribe('whenUserReplied-'+this.props.thread.id);
 		
 		channel.bind('App\\Events\\UserReplied', function(data) {
 			console.log('UserReplied', data);
-			this.props.updateThread(data.message);
+			if( currentUser.id !== data.message.sender_id ) {
+				this.props.updateThread(data.message);
+				this.scrollToBottom();
+			}
+			this.props.fetchUserThreads(currentUser);
 		}.bind(this));
 	}
 
@@ -119,6 +124,7 @@ class Thread extends Component
 		// reply to the other user on this thread id 
 		// with this message and i am current user 
 		this.props.replyTo(otherUser, thread, message, currentUser);
+		this.scrollToBottom();
 	}
 
 	loading()
