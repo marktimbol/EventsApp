@@ -28,6 +28,7 @@ class Thread extends Component
 {
 	componentDidMount()
 	{
+		console.log(this.props);
 		this.listenToIncomingMessage();
 		this.scrollToBottom();
 	}
@@ -39,7 +40,7 @@ class Thread extends Component
 		
 		channel.bind('App\\Events\\UserReplied', function(data) {
 			console.log('UserReplied', data);
-			// let newMessage = data.message;
+			this.props.updateThread(data.message);
 		}.bind(this));
 	}
 
@@ -47,8 +48,7 @@ class Thread extends Component
 	{
 		let { thread, currentUser, isSending, hasConversation } = this.props;
 		let messages;
-		if( hasConversation )
-		{
+		if( hasConversation ) {
 			messages = thread.messages.map((message, index) => {
 				// Align message to the right?
 				let alignRight = false;

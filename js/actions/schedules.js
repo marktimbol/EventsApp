@@ -5,7 +5,6 @@ export const fetchSchedules = () => {
 		fetch(`${apiUrl}/public/schedules`)
 			.then((response) => response.json())
 			.then((schedules) => {
-				console.log(schedules);
 				dispatch(schedulesWasFetched(schedules));
 			})
 	}

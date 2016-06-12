@@ -38,7 +38,7 @@ class AgendaSpeakerRow extends Component
 						<Text style={[GS.themeFont, styles.name]}>
 							{speaker.name}
 						</Text>
-						<Text style={[GS.themeFont, GS.body]}>
+						<Text style={[GS.themeFont, GS.body]} numberOfLines={1}>
 							{speaker.designation}
 						</Text>
 						<Text style={[GS.themeFont, GS.body]}>
@@ -61,12 +61,12 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'row',
 		padding: 10,
-		borderColor: '#ddd',
-		borderBottomWidth: StyleSheet.hairlineWidth,
+		marginBottom: 10,
 	},
 
 	speaker__image: {
 		flex: 0.2,
+		marginLeft: 10
 	},
 
 	avatar: {
@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
 	name: {
 		color: '#333',
 		fontSize: 14,
-		marginBottom: 3,
 	},
 
 })

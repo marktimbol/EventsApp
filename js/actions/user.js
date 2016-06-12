@@ -5,7 +5,6 @@ import { Actions } from 'react-native-router-flux';
 
 export const authenticateUser = (email, password) => {
 	return (dispatch) => {
-		console.log(dispatch);
 		dispatch(status.authenticating());
 		fetch(`${apiUrl}/public/login`, {
 			method: 'POST',
@@ -19,7 +18,6 @@ export const authenticateUser = (email, password) => {
 		})
 		.then((response) => response.json())
 		.then((user) => {
-			console.log(user);
 			if( user.api_token === '' ) {
 				dispatch(status.invalidCredentials());
 				return Actions.login({ message: 'Invalid email / password'});	
@@ -58,7 +56,6 @@ export const startThread = (currentUser, otherUserId, message) => {
 		})
 		.then((response) => response.json())
 		.then((thread) => {
-			console.log('startThread response', thread);
 			dispatch(updateThread(thread));
 			dispatch(status.messageSent());
 			dispatch(fetchUserThreads(currentUser));
@@ -85,7 +82,6 @@ export const replyTo = (otherUserId, thread, message, currentUser) => {
 		})
 		.then((response) => response.json())
 		.then((data) => {
-			console.log('replyTo response', data);
 			dispatch(status.messageSent());
 			dispatch(updateThread(data));
 			dispatch(fetchUserThreads(currentUser));
@@ -101,7 +97,6 @@ export const checkIfTheyHaveConversation = (currentUser, otherUserId) => {
 			.then((response) => response.json())
 			.then((result) => {
 				if( result.haveConversation ) {
-					console.log('checkIfTheyHaveConversation', result);
 					dispatch(status.haveConversation());
 					dispatch(setCurrentThread(result.thread));
 				} else {

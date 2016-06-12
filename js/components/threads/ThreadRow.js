@@ -37,7 +37,7 @@ class ThreadRow extends Component
 
 					<View style={styles.right}>
 						<View>
-							<Text style={[GS.themeFont, GS.subTitle]}>
+							<Text style={[GS.themeFont, GS.subTitle, styles.name]}>
 								{ name }
 							</Text>
 							<Text style={[GS.themeFont, GS.body]} numberOfLines={2}>
@@ -73,9 +73,8 @@ const styles = StyleSheet.create({
 	},
 
 	name: {
-		color: '#333',
 		fontSize: 14,
-		marginBottom: 5,
+		marginBottom: 0,
 	},
 });
 

@@ -21,6 +21,9 @@ export const userThreadsWasFetched = (threads) => {
 	}
 }
 
+/**
+* Called when viewing single thread
+**/
 export const setCurrentThread = (thread) => {
 	return {
 		type: 'SET_CURRENT_THREAD',
@@ -28,6 +31,9 @@ export const setCurrentThread = (thread) => {
 	}
 }
 
+/**
+* Called when there's new message
+**/
 export const updateThread = (thread) => {
 	return {
 		type: 'UPDATE_THREAD',

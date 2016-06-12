@@ -55,10 +55,11 @@ class SpeakerRow extends Component
 
 const styles = StyleSheet.create({
 	speakerContainer: {
-		// flexWrap: 'wrap',
 		marginVertical: 5,
 		marginHorizontal: 5,
 		backgroundColor: 'white',
+		borderBottomWidth: 1,
+		borderBottomColor: themeColor,
 		shadowColor: '#333',
 		shadowOpacity: 0.1,
 		shadowRadius: 3,
