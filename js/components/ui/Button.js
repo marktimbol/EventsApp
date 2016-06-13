@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
 		borderRadius: 2,
 		borderColor: 'white',
 		backgroundColor: 'white',
-		borderWidth: StyleSheet.hairlineWidth,
+		// borderWidth: StyleSheet.hairlineWidth,
 	},
 
 	label: {

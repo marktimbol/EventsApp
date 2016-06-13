@@ -20,6 +20,7 @@ import Schedules from '../components/schedules/Schedules';
 import Agenda from '../components/schedules/agendas/Agenda';
 import Speakers from '../components/speakers/Speakers';
 import Speaker from '../components/speakers/Speaker';
+import RequestMeeting from '../components/meetings/RequestMeeting';
 import StartChat from '../components/threads/StartChat';
 import Exhibitors from '../components/exhibitors/Exhibitors';
 import Exhibitor from '../components/exhibitors/Exhibitor';
@@ -59,6 +60,7 @@ class AIMCongressRouter extends Component
 					<Scene key="agenda" component={Agenda} title="Agenda" />
 					<Scene key="speakers" component={Speakers} title="Speakers" />
 					<Scene key="speaker" component={Speaker} title="Speaker" />
+					<Scene key="requestMeeting" component={RequestMeeting} title="Request Meeting" />
 					<Scene key="startChat" component={StartChat} title="Chat" />
 					<Scene key="exhibitors" component={Exhibitors} title="Exhibitors" />
 					<Scene key="exhibitor" component={Exhibitor} title="Exhibitor" />

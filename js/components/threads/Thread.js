@@ -9,7 +9,8 @@ import {
 	Text,
 	ActivityIndicatorIOS,
 	ScrollView,
-	StyleSheet
+	StyleSheet,
+	ListView,
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -26,11 +27,32 @@ import { themeColor } from '../../env';
 
 class Thread extends Component
 {
+	constructor(props)
+	{
+		super(props);
+		this.state = {
+			messages: new ListView.DataSource({
+				rowHasChanged: (row1, row2) => row1 !== row2
+			})
+		}
+	}
+
 	componentDidMount()
 	{
-		console.log(this.props);
 		this.listenToIncomingMessage();
 		this.scrollToBottom();
+
+		let { thread } = this.props;
+		this.setState({
+			messages: this.state.messages.cloneWithRows(thread.messages)
+		});
+	}
+
+	componentWillReceiveProps(nextProps)
+	{
+		this.setState({
+			messages: this.state.messages.cloneWithRows(nextProps.thread.messages)
+		})
 	}
 
 	listenToIncomingMessage()
@@ -53,21 +75,6 @@ class Thread extends Component
 	{
 		let { thread, currentUser, isSending, hasConversation } = this.props;
 		let messages;
-		if( hasConversation ) {
-			messages = thread.messages.map((message, index) => {
-				// Align message to the right?
-				let alignRight = false;
-				if( currentUser.id === message.sender_id ) {
-					alignRight = true;
-				}
-				return (
-					<ThreadMessageRow 
-						key={index} 
-						message={message}
-						alignRight={alignRight} />
-				)
-			});
-		}
 
 		return (
 			<View style={styles.messages}>
@@ -75,7 +82,11 @@ class Thread extends Component
 					ref={component => this._scrollView = component}
 					style={styles.scrollView}
 				>
-					{messages}
+					<ListView 
+						dataSource={this.state.messages}
+						renderRow={this.renderRow.bind(this)}
+						initialListSize={10}
+						enableEmptySections={true} />
 					{ isSending ? <Loading type={'Small'} color={themeColor} /> : <View></View> }
 				</ScrollView>
 				<View style={styles.form}>
@@ -83,6 +94,22 @@ class Thread extends Component
 						onStartThread={this.submitForm.bind(this)} />
 				</View>
 			</View>
+		)
+	}
+
+	renderRow(message, sectionID, rowID)
+	{
+		// Align message to the right?
+		let { currentUser } = this.props;
+		let alignRight = false;
+		if( currentUser.id === message.sender_id ) {
+			alignRight = true;
+		}
+		return (
+			<ThreadMessageRow 
+				key={message.id} 
+				message={message}
+				alignRight={alignRight} />
 		)
 	}
 

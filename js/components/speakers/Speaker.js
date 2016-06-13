@@ -53,9 +53,9 @@ class Speaker extends Component
 
 				<View style={styles.actions}>
 					<View style={styles.action}>
-						<TouchableHighlight style={styles.action__link} underlayColor={'#c62828'} onPress={() => alert('Other action') }>
+						<TouchableHighlight style={styles.action__link} underlayColor={'#c62828'} onPress={() => Actions.requestMeeting({ toUser: speaker.id }) }>
 							<Text style={[GS.themeFont, GS.textCenter, styles.action__label]}>
-								Other
+								Request Meeting
 							</Text>
 						</TouchableHighlight>
 					</View>

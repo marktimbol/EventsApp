@@ -46,6 +46,7 @@ class Speakers extends Component
 				contentContainerStyle={styles.listView}
 				dataSource={this.state.speakers}
 				renderRow={this.renderRow.bind(this)}
+				initialListSize={6}
 				enableEmptySections={true} />
 		)
 	}
